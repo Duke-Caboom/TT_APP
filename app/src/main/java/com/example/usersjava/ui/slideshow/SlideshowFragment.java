@@ -30,8 +30,8 @@ public class SlideshowFragment extends Fragment {
 
     private static WeakReference<MainActivity> defaultInstance;
 
-    public ListView listPublico;
-    public ListView listPrivado;
+    private ListView listPublico;
+    private ListView listPrivado;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class SlideshowFragment extends Fragment {
         });
         listPrivado = root.findViewById(R.id.listPrivado);
         listPublico = root.findViewById(R.id.listPublico);
-        Log.v(TAG, "####################################### Me cosntrui");
+        Log.v(TAG, "#################### ################### Me cosntrui");
         start();
         return root;
     }
