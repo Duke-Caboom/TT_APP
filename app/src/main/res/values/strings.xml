@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">AMASE</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Solicitar Ayuda</string>
+    <string name="menu_gallery">Actualizar Datos Personales</string>
+    <string name="menu_slideshow">Mis Mensajes</string>
+    <string name="menu_tools">Actualizar Contactos</string>
+    <string name="menu_share">Argegar Contactos</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_close">Cerrar sesión</string>
+
+    <string name="welcome">Inicio de Sesión</string>
+    <string name="prompt_email">Introduce tu email *</string>
+    <string name="prompt_email2">Introduce el email *</string>
+    <string name="action_sign_in">Siguiente</string>
+    <string name="pdhn">©Copyright</string>
+
+    <string name="error_field_requered">Este campo es requerido</string>
+    <string name="error_invalid_email">La direccion de correo electronico es invalida</string>
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="action_sign_in_short2">Iniciar Sesión</string>
+    <string name="prompt_password">Ingrese el password *</string>
+    <string name="error_invalid_password">El password es muy pequeño</string>
+    <string name="error_invalid_tel">El telefono debe ser de 10 digitos</string>
+    <string name="networks">Comprueba tu conexion a internet</string>
+    <string name="invalid_credentials">Credenciales invalidas</string>
+    <string name="button">Button</string>
+    <string name="menu_camera">Camara</string>
+    <string name="gallery">Galeria</string>
+    <string name="fail_register">Fallo al registrar al usuario</string>
+
+
+    <string name="name">Nombre (s) *</string>
+    <string name="Lastname">Apellidos *</string>
+    <string name="NumberTell">Número Telefonico *</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
+
+    <string name="privada">Privada</string>
+    <string name="publica">Publica</string>
+    <string name="Solicitar">Enviar</string>
+    <string name="asalto">Asalto \n Me acaban de asaltar, ayuda</string>
+    <string name="temblor">Temblor \n Estoy bajo los escombros, ayuda</string>
+    <string name="incendio">Incendio \n Hay un incendio en mi casa ayuda, ayuda</string>
+    <string name="secuestro">Secuestro \n Me estan secuestrando, ayuda</string>
+    <string name="fail_register2">Fallo</string>
+
+    <string name="welcome2">Bienvenido</string>
+    <string name="registro">Registro</string>
+    <string name="iniciarsesion">Inicio de Sesión</string>
+
+    <string name="Cancelar_Actualizacion">Cancelar</string>
+    <string name="Actualiza_datos">Actualizar</string>
+
+    <string name="Cancelar_Confianza">Cancelar</string>
+    <string name="Agregar_confianza">Agregar contacto</string>
+
+    <string name="Cancelar_Actualizacion_confianza">Cancelar</string>
+    <string name="Actualiza_datos_confianza">Actualizar contacto</string>
+
+    <string name="parentesco">Parentesco *</string>
+
+</resources>

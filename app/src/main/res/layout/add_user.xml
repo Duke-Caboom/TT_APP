@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userModel"
+            type="ViewModels.UserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_login"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient_login"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--<androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    app:cardBackgroundColor="@color/colorGray2"
+                    app:cardCornerRadius="30dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_person_white" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                            android:id="@+id/buttonCamera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:onClick="@{userModel::onClick}"
+                            android:text="@string/menu_camera"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite"
+                            app:backgroundTint="@color/colorGray2" />
+
+                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                            android:id="@+id/buttonGallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:onClick="@{userModel::onClick}"
+                            android:text="@string/gallery"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite"
+                            app:backgroundTint="@color/colorGray2" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="45dp">
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/ic_logos"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:capitalize="sentences"
+                        android:inputType="textCapSentences|textNoSuggestions"
+                        android:privateImeOptions="nm"
+                        android:id="@+id/name_text_input"
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="@string/name"
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:capitalize="sentences"
+                            android:inputType="textCapSentences|textNoSuggestions"
+                            android:privateImeOptions="nm"
+                            android:id="@+id/name_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"
+                            app:binding="@{userModel.nameUI}">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lastname_text_input"
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="@string/Lastname"
+                        android:capitalize="sentences"
+                        android:inputType="textCapSentences|textNoSuggestions"
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lastname_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:capitalize="sentences"
+                            android:inputType="textCapSentences|textNoSuggestions"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"
+                            app:binding="@{userModel.lastnameUI}"
+                            >
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tel_text_input"
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="@string/NumberTell"
+                        android:inputType="phone"
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tel_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:inputType="phone"
+                            android:textColorHint="@color/colorWhite"
+                            app:binding="@{userModel.telUI}"
+                            >
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/email_text_input"
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="@string/prompt_email"
+                        android:inputType="text|textNoSuggestions"
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"
+                            app:binding="@{userModel.emailUI}">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/password_text_input"
+                        style="@style/TextInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:hint="@string/prompt_password"
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"
+                            app:binding="@{userModel.passwordUI}"
+                            >
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Spinner
+                        android:id="@+id/spinnerRoles"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorWhite"
+                        android:entries="@array/item_roles"
+                        android:background="@color/colorWhite"
+                        android:selectedItemPosition="@={userModel.item.selectedItemPosition}"></Spinner>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/buttonCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/cancel"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        app:backgroundTint="@color/colorBlack"
+                        app:rippleColor="@color/colorWhite"
+                        android:onClick="@{userModel::onClick}"
+                        />
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/buttonAddUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/ok"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        app:backgroundTint="@color/colorBlack"
+                        app:rippleColor="@color/colorWhite"
+                        android:onClick="@{userModel::onClick}"/>
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

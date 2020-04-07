@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_person_24px"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_notification_important_24px"
+            android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_cloud_upload_24px"
+            android:title="@string/menu_gallery" />
+    </group>
+    <item android:title="Contactos de Confianza">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_person_add_24px"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_tools"
+                android:icon="@drawable/ic_cloud_upload_24px"
+                android:title="@string/menu_tools" />
+        </menu>
+    </item>
+    <item android:title="Aplicación">
+        <menu>
+            <item
+                android:id="@+id/nav_close"
+                android:icon="@drawable/ic_exit_to_app"
+                android:title="@string/menu_close" />
+        </menu>
+    </item>
+
+</menu>
