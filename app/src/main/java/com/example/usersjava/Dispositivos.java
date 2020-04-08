@@ -24,7 +24,7 @@ public class Dispositivos {
     }
 
     public void addDispositivo(Instance instance){
-        Log.i(TAG, "getUserIdentifier: "+ instance.getUserIdentifier());
+        Log.i(TAG, "getUserIdentifier:  "+ instance.getUserIdentifier());
         Log.i(TAG, "dispositivos: "+ dispositivos.toString());
         dispositivos.put(instance.getUserIdentifier(),instance);
     }
