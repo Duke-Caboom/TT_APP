@@ -30,11 +30,11 @@ public class Mensajes {
 
         if (tipoMensaje.getIdUser().intValue() != ComponentDataBase.getInstance().getIdUser().intValue()
                 && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())){
-            Log.v(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: "+ index);
+            Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: "+ index);
             return;
         }
         this.mensajes.put(index, tipoMensaje);
-        Log.v(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: "+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: "+ index);
         index = index + 1;
     }
 
@@ -42,11 +42,11 @@ public class Mensajes {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
         this.mensajesEnviado.put(indexEnviado, tipoMensaje);
-        Log.v(getClass().getSimpleName(), "----------------> Mensaje privado agregado al registro"+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Mensaje privado agregado al registro"+ index);
         indexEnviado = indexEnviado + 1;
 
         this.mensajes.put(index, tipoMensaje);
-        Log.v(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: "+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: "+ index);
         index = index + 1;
 
         ComponentDataBase.getInstance().addMensaje(tipoMensaje);
@@ -61,14 +61,14 @@ public class Mensajes {
         if (mensajes.size()!=0){
 
             for (int i = sizeMensajes; i != 0; i--){
-                Log.v(getClass().getSimpleName(), "----------------> Contador(): "+ mensajes.get(i-1).getContador()+10
+                Log.e(getClass().getSimpleName(), "----------------> Contador(): "+ mensajes.get(i-1).getContador()+10
                         +" Reloj: " +  (Reloj.getInstance().getContador()));
                 if (mensajes.get(i-1).getContador()+10 >= Reloj.getInstance().getContador()){
-                    Log.v(getClass().getSimpleName(), "----------------> Agregando mensaje a la tabla");
+                    Log.e(getClass().getSimpleName(), "----------------> Agregando mensaje a la tabla");
                     data.append(mensajes.get(i-1).getKeyValue());
-                    Log.v(getClass().getSimpleName(), "----------------> Se agrego mensaje a la tabla");
+                    Log.e(getClass().getSimpleName(), "----------------> Se agrego mensaje a la tabla");
                 }else{
-                    Log.v(getClass().getSimpleName(), "----------------> Regresando mensaje");
+                    Log.e(getClass().getSimpleName(), "----------------> Regresando mensaje");
                     return data.toString();
                 }
                 data.append("#_");
@@ -77,11 +77,11 @@ public class Mensajes {
 
         if (data != null && data.toString() != ""){
             data.append("#");
-            Log.v(getClass().getSimpleName(), "----------------> Regresando Tabla:" + data.toString().replace("#_#",""));
+            Log.e(getClass().getSimpleName(), "----------------> Regresando Tabla:" + data.toString().replace("#_#",""));
             return data.toString().replace("#_#","");
         }
 
-        Log.v(getClass().getSimpleName(), "----------------> Tabla vacia");
+        Log.e(getClass().getSimpleName(), "----------------> Tabla vacia");
         return null;
     }
 
@@ -94,7 +94,7 @@ public class Mensajes {
                 addMensajes(mensajesTabla[i]);
             }
         }else{
-            Log.v(getClass().getSimpleName(), "Mamo, quien sabe que mandaron estos mens: " + tabla);
+            Log.e(getClass().getSimpleName(), "Mamo, quien sabe que mandaron estos mens: " + tabla);
         }
 
         return true;
@@ -104,16 +104,16 @@ public class Mensajes {
 
         if (this.mensajes.size()!= 0){
 
-            Log.v(getClass().getSimpleName(),"Revisando si existe ya el mensaje en la HASMAP");
+            Log.e(getClass().getSimpleName(),"Revisando si existe ya el mensaje en la HASMAP");
             for (TipoMensaje temp : this.mensajes.values()) {
 
-                Log.v(getClass().getSimpleName(),"User=" + temp.getIdUser()+
+                Log.e(getClass().getSimpleName(),"User=" + temp.getIdUser()+
                         ", IdMensa: "+ temp.getIdMensaje());
 
                 if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)){
-                    Log.v(getClass().getSimpleName(),"Mismo ID");
+                    Log.e(getClass().getSimpleName(),"Mismo ID");
                     if (temp.getIdUser().intValue() == idUser.intValue()) {
-                        Log.v(getClass().getSimpleName(),"Mismo Usuario");
+                        Log.e(getClass().getSimpleName(),"Mismo Usuario");
                         return true;
                     }
                 }
@@ -147,7 +147,7 @@ public class Mensajes {
             }
             return dataS;
         }else{
-            Log.v(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
+            Log.e(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
             return null;
         }
     }
@@ -172,7 +172,7 @@ public class Mensajes {
                 }
             }
 
-            Log.v(getClass().getSimpleName(), "----------------> data.size(): "+ data.size());
+            Log.e(getClass().getSimpleName(), "----------------> data.size(): "+ data.size());
             String[] dataS= new String[data.size()];
 
             for (int i=0; i < data.size();i++){
@@ -180,7 +180,7 @@ public class Mensajes {
             }
             return dataS;
         }else{
-            Log.v(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
+            Log.e(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
             return null;
         }
     }
@@ -195,6 +195,5 @@ public class Mensajes {
         }else{
             Log.e(getClass().getSimpleName(), "----------------> Sin Mensajes");
         }
-
     }
 }

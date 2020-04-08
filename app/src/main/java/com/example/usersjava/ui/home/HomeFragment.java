@@ -174,6 +174,11 @@ public class HomeFragment extends Fragment {
         Message message;
         StringBuilder trama = new StringBuilder();
 
+        if (ComponentDataBase.getInstance().getContactos().equalsIgnoreCase("")){
+            Log.e(TAG, "##### ----------------> No tiene contactos agregados");
+            return false;
+        }
+
         //Construccion de la trama publica
 
         //idUSer
@@ -199,7 +204,7 @@ public class HomeFragment extends Fragment {
         Log.v(TAG, "##### ----------------> 3 TRAMA: " + trama.toString());
 
         //Agregado destinatarios
-        trama.append("");
+        trama.append(ComponentDataBase.getInstance().getContactos());
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
         //texto
