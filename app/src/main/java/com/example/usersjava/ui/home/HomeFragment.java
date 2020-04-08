@@ -1,5 +1,11 @@
 package com.example.usersjava.ui.home;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -28,8 +35,6 @@ import com.hypelabs.hype.Message;
 
 import java.io.UnsupportedEncodingException;
 
-import Library.MemoryData;
-
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
@@ -43,6 +48,9 @@ public class HomeFragment extends Fragment {
     private TextView textMSG4;
     private TextView textMSG5;
     private TextView textMSG6;
+
+    private double latitud, longitud;
+    private LocationManager ubicacion;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +88,9 @@ public class HomeFragment extends Fragment {
         textMSG4 = root.findViewById(R.id.msg4);
         textMSG5 = root.findViewById(R.id.msg5);
         textMSG6 = root.findViewById(R.id.msg6);
+
+        localizacion();
+        registrarLocalizacion();
 
     }
 
@@ -245,6 +256,7 @@ public class HomeFragment extends Fragment {
 
         //Mensaje
         trama.append(text);
+        trama.append(". Localizacion Apox: "+String.valueOf(latitud)+","+String.valueOf(longitud));
         Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
 
         //Convierte trama a Bytes
@@ -266,6 +278,60 @@ public class HomeFragment extends Fragment {
         Mensajes.getInstance().addMensajesEnviados(trama.toString());
         //Log.v(TAG, "##### El mensaje que salio fue: " + new String(message.getData(), "UTF-8"));
         return true;
+    }
+
+    private void localizacion() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+            }, 1000);
+        }
+
+        ubicacion = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Location location = ubicacion.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+        if (location != null) {
+            Log.d("Latitud", String.valueOf(location.getLatitude()));
+            Log.d("Longitud", String.valueOf(location.getLongitude()));
+            //longitud.setText("Longitud" + String.valueOf(location.getLongitude()));
+            //latitud.setText("Latitud" + String.valueOf(location.getLatitude()));
+        }
+
+    }
+
+    private void registrarLocalizacion() {
+        ubicacion = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, new miLocalizacionListener());
+    }
+
+
+    private class miLocalizacionListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            latitud = location.getLatitude();
+            longitud = location.getLongitude();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
     }
 
 }

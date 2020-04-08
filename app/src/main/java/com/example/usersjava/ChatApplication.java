@@ -40,13 +40,12 @@ import com.hypelabs.hype.StateObserver;
 
 import java.io.UnsupportedEncodingException;
 
-public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate, Runnable {
+public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate {
 
     public static String announcement = android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL;
     private static final String TAG = ChatApplication.class.getName();
 
     private boolean isConfigured = false;
-    private boolean isRun = false;
     private Activity activity;
 
     public void setActivity(Activity activity) {
@@ -55,8 +54,15 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onApplicationStart(Application app) {
-        //Thread t = new Thread(this);
-        //t.start();
+    }
+
+    public void configChatApp(){
+        if (!isConfigured){
+            Reloj.getInstance().start();
+            Mensajes.getInstance().startApp();
+            configureHype();
+        }
+
     }
 
     @Override
@@ -293,22 +299,5 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         setLifecyleDelegate(this);
     }
 
-    @Override
-    public void run() {
-        boolean config= false;
-        while(!config){
-            if (ComponentDataBase.getInstance() != null){
-                configChatApp();
-                config = true;
-            }
-        }
-    }
 
-    public void configChatApp(){
-        if (!isConfigured){
-            Reloj.getInstance().start();
-            Mensajes.getInstance().startApp();
-            configureHype();
-        }
-    }
 }

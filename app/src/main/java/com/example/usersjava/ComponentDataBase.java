@@ -72,20 +72,13 @@ public class ComponentDataBase {
 
     public HashMap<Integer, TipoMensaje> getLatestMessages() {
         //try {
-            Log.e(getClass().getSimpleName(), "----------------> METODO");
             HashMap<Integer, TipoMensaje> msg = new HashMap<>();
             int i = 0;
-            Log.e(getClass().getSimpleName(), "----------------> ANTES");
             DataBase dataBase = new DataBase(MainActivity.getDefaultInstance(), "base", null, 1);
-            Log.e(getClass().getSimpleName(), "----------------> DESPUES");
             SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-            Log.e(getClass().getSimpleName(), "----------------> EJECUTANDO");
             Cursor fila = sqLiteDatabase.rawQuery("select idUser, idMensaje, publico, destinatarios, mensaje, fecha, hora from mensajes order by secuencia", null);
-
-            Log.e(getClass().getSimpleName(), "----------------> EJECUTE");
             if (fila.moveToFirst()) {
-                Log.e(getClass().getSimpleName(), "----------------> ENCONTRO");
-                TipoMensaje tipoMensaje = new TipoMensaje(0L,
+                TipoMensaje tipoMensaje = new TipoMensaje(-1L,
                         fila.getInt(0),
                         fila.getString(1),
                         fila.getInt(2),
