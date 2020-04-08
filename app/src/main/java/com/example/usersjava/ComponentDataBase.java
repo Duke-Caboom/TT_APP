@@ -21,12 +21,12 @@ public class ComponentDataBase {
     public void setIdUser(Integer idUser){
         editor.putInt("idUser",idUser);
         editor.apply();
+
     }
 
     public void setLastIdMensaje(Integer idMensaje){
         editor.putInt("lastMensaje", idMensaje);
         editor.apply();
-
     }
 
     public Integer getLastIdMensaje(){

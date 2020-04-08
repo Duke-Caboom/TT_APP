@@ -81,10 +81,8 @@ public class SlideshowFragment extends Fragment {
                                 mensajesArray);
                         listPrivado.setAdapter(adapter);
                     }
-
                     mHandler.postDelayed(this, 10000);
                 }
-
         };
         mTicker.run();
     }

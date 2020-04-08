@@ -1,11 +1,7 @@
 package com.example.usersjava;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,12 +11,6 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-
-import android.util.Log;
-import android.view.Menu;
-import android.widget.ArrayAdapter;
-
 
 import java.lang.ref.WeakReference;
 
@@ -39,9 +29,13 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setContactActivity(this);
 
         MemoryData memoryData = MemoryData.getInstance(this);
-        memoryData.saveData("user",String.valueOf(((int) Math.random() * 1000000 + 1)));
+
+        if(ComponentDataBase.getInstance().getIdUser() == 0){
+            ComponentDataBase.getInstance().setIdUser(Integer.valueOf(memoryData.getData("user")));
+        }
 
         final ChatApplication chatApplication = (ChatApplication)getApplication();
         chatApplication.setActivity(this);
@@ -80,7 +74,11 @@ public class MainActivity extends AppCompatActivity{
         return defaultInstance != null ? defaultInstance.get() : null;
     }
 
-    public void requestPermissions(Activity activity) {
+    private static void setContactActivity(MainActivity instance) {
+        defaultInstance = new WeakReference<>(instance);
+    }
+
+    /*public void requestPermissions(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_ACCESS_COARSE_LOCATION_ID);
@@ -88,17 +86,13 @@ public class MainActivity extends AppCompatActivity{
             ChatApplication chatApplication = (ChatApplication) getApplication();
             chatApplication.requestHypeToStart();
         }
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_ACCESS_COARSE_LOCATION_ID:
-
-                ChatApplication chatApplication = (ChatApplication) getApplication();
-                chatApplication.requestHypeToStart();
-
-                break;
+        if (requestCode == REQUEST_ACCESS_COARSE_LOCATION_ID) {
+            ChatApplication chatApplication = (ChatApplication) getApplication();
+            chatApplication.requestHypeToStart();
         }
     }
 

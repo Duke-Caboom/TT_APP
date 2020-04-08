@@ -17,7 +17,7 @@ public class DataBase  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table mensajes(idUser int primary key, " +
                                           "idMensaje text primary key, " +
-                                            "publico int, " +
+                                            "publico int," +
                                             "destinatarios text," +
                                             "mensaje text)");
     }

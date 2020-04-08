@@ -27,11 +27,8 @@ package com.example.usersjava;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.usersjava.ui.slideshow.SlideshowFragment;
 import com.hypelabs.hype.Error;
 import com.hypelabs.hype.Hype;
 import com.hypelabs.hype.Instance;
@@ -59,13 +56,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onApplicationStart(Application app) {
-
         configureHype();
-        Log.i(TAG, "#####################################################APLICACION INICIADA");
         Reloj.getInstance().start();
-        /*if (ComponentDataBase.getInstance().getIdUser() == 0){
-            ComponentDataBase.getInstance().setIdUser((int) (Math.random() * 1000000 + 1));
-        }*/
     }
 
     @Override
@@ -77,36 +69,23 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     //################################################
 
     private void configureHype() {
-
         if (isConfigured)
             return;
 
         Hype.setContext(getApplicationContext());
-
-        // Add this as an Hype observer
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-
-        MemoryData memoryData = MemoryData.getInstance(MainActivity.getDefaultInstance());
-
-
-        Hype.setUserIdentifier(232323);
-
+        Hype.setTransportType(31);
+        Hype.setUserIdentifier(ComponentDataBase.getInstance().getIdUser());
         Hype.setAppIdentifier("c28a6ca4");
 
-        // Set Hype announcement
         try {
             Hype.setAnnouncement(ChatApplication.announcement.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             Hype.setAnnouncement(null);
             e.printStackTrace();
         }
-
-
-        // Update interface
-        //MainActivity mainActivity = MainActivity.getDefaultInstance();
-        //mainActivity.requestPermissions(mainActivity);
 
         Hype.start();
         isConfigured = true;
@@ -132,7 +111,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeStart() {
-        Log.i(TAG, "Hype started!");
+        Log.e(TAG, "Hype started!");
     }
 
     @Override
@@ -144,12 +123,12 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             description = String.format("[%s]", error.getDescription());
         }
 
-        Log.i(TAG, String.format("Hype stopped [%s]", description));
+        Log.e(TAG, String.format("Hype stopped [%s]", description));
     }
 
     public void onHypeFailedStarting(Error error) {
 
-        Log.i(TAG, String.format("Hype failed starting [%s]", error.getDescription()));
+        Log.e(TAG, String.format("Hype failed starting [%s]", error.getDescription()));
 
         // Obtain information of error
         final String failedMsg = error == null ? "" : String.format("Suggestion: %s\nDescription: %s\nReason: %s",
@@ -170,13 +149,13 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeReady() {
-        Log.i(TAG, String.format("Hype is ready"));
+        Log.e(TAG, String.format("Hype is ready"));
         requestHypeToStart();
     }
 
     @Override
     public void onHypeStateChange() {
-        Log.i(TAG, String.format("Hype changed state to [%d] (Idle=0, Starting=1, Running=2, Stopping=3)", Hype.getState().getValue()));
+        Log.e(TAG, String.format("Hype changed state to [%d] (Idle=0, Starting=1, Running=2, Stopping=3)", Hype.getState().getValue()));
     }
 
     //################################################
@@ -191,7 +170,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     @Override
     public void onHypeInstanceFound(Instance instance) {
 
-        Log.i(TAG, String.format("Hype found instance: %s", instance.getStringIdentifier()));
+        Log.e(TAG, String.format("Hype found instance: %s", instance.getStringIdentifier()));
 
         // Resolve the instance, if it is interesting
         if (shouldResolveInstance(instance)) {
@@ -202,7 +181,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     @Override
     public void onHypeInstanceLost(Instance instance, Error error) {
 
-        Log.i(TAG, String.format("Hype lost instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
+        Log.e(TAG, String.format("Hype lost instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
 
         // Remove lost instance from resolved instances
         removeFromResolvedInstancesMap(instance);
@@ -210,14 +189,14 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeInstanceResolved(Instance instance) {
-        Log.i(TAG, String.format("Hype resolved instance: %s", instance.getStringIdentifier()));
+        Log.e(TAG, String.format("Hype resolved instance: %s", instance.getStringIdentifier()));
         // Add found instance to resolved instances
         addToResolvedInstancesMap(instance);
     }
 
     @Override
     public void onHypeInstanceFailResolving(Instance instance, Error error) {
-        Log.i(TAG, String.format("Hype failed resolving instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
+        Log.e(TAG, String.format("Hype failed resolving instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
     }
 
     public void addToResolvedInstancesMap(Instance instance) {
@@ -250,23 +229,10 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
                 e.printStackTrace();
             }
         }
-
-        /* Notify the contact activity to refresh the UI
-        MainActivity mainActivity = MainActivity.getDefaultInstance();
-        if (mainActivity != null) {
-            mainActivity.notifyContactsChanged();
-        }*/
     }
 
     public void removeFromResolvedInstancesMap(Instance instance) {
-
         Dispositivos.getInstance().deleteDispositivo(instance);
-
-        /* Notify the contact activity to refresh the UI
-        MainActivity mainActivity = MainActivity.getDefaultInstance();
-        if (mainActivity != null) {
-            mainActivity.notifyContactsChanged();
-        }*/
     }
 
     //################################################
@@ -276,7 +242,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     @Override
     public void onHypeMessageReceived(Message message, Instance instance) {
 
-        Log.i(TAG, String.format("Hype got a message from: %s", instance.getStringIdentifier()));
+        Log.e(TAG, String.format("Hype got a message from: %s", instance.getStringIdentifier()));
 
         String cadena = new String();
 
@@ -289,7 +255,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             return;
         }
 
-        Log.i(TAG, String.format("Mensaje: " + cadena));
+        Log.e(TAG, String.format("Mensaje: " + cadena));
 
         if (cadena.contains("! TABLA")) {
             Log.v(getClass().getSimpleName(), "----------------> Tabla recibida");
@@ -306,19 +272,19 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     @Override
     public void onHypeMessageFailedSending(MessageInfo messageInfo, Instance instance, Error error) {
 
-        Log.i(TAG, String.format("Hype failed to send message: %d [%s]", messageInfo.getIdentifier(), error.getDescription()));
+        Log.e(TAG, String.format("Hype failed to send message: %d [%s]", messageInfo.getIdentifier(), error.getDescription()));
     }
 
     @Override
     public void onHypeMessageSent(MessageInfo messageInfo, Instance instance, float progress, boolean done) {
 
-        Log.i(TAG, String.format("Hype is sending a message: %f", progress));
+        Log.e(TAG, String.format("Hype is sending a message: %f", progress));
     }
 
     @Override
     public void onHypeMessageDelivered(MessageInfo messageInfo, Instance instance, float progress, boolean done) {
 
-        Log.i(TAG, String.format("Hype delivered a message: %f", progress));
+        Log.e(TAG, String.format("Hype delivered a message: %f", progress));
     }
 
     //################################################
@@ -330,6 +296,5 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         super.onCreate();
         // See BaseApplication.java
         setLifecyleDelegate(this);
-        Log.i(TAG, "#####################################################ME ESTOY CREANDO JAJAJAJAJA");
     }
 }

@@ -17,9 +17,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+
 import com.example.usersjava.ComponentDataBase;
 import com.example.usersjava.Dispositivos;
-import com.example.usersjava.MainActivity;
+import com.example.usersjava.Mensajes;
 import com.example.usersjava.R;
 import com.hypelabs.hype.Hype;
 import com.hypelabs.hype.Instance;
@@ -43,17 +44,13 @@ public class HomeFragment extends Fragment {
     private TextView textMSG5;
     private TextView textMSG6;
 
-
-    MemoryData memoryData = MemoryData.getInstance(getActivity());
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        //FloatingActionButton fab = root.findViewById(R.id.fab);
-        //fab.setOnClickListener(this);
+
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -61,13 +58,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
         //Inicializamos los elemntos creados
         initElements(root);
         //Definimos los eventos para cada elemento que se ocupe
         setButtonListeners();
-
 
         return root;
     }
@@ -177,13 +171,13 @@ public class HomeFragment extends Fragment {
         Log.v(TAG, "##### ----------------> 0 TRAMA: " + trama.toString());
 
         //idUSer
-        trama.append(memoryData.getData("user"));
+        trama.append(ComponentDataBase.getInstance().getIdUser());
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 1 TRAMA: " + trama.toString());
 
         //idMensaje
-        int temp = memoryData.getData("lastMsg") == "" ? 0 : Integer.valueOf(memoryData.getData("lastMsg"));
-        memoryData.saveData("lastMsg",String.valueOf(temp +1));
+        int temp = ComponentDataBase.getInstance().getLastIdMensaje() + 1;
+        ComponentDataBase.getInstance().setLastIdMensaje(temp);
         trama.append(temp);
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 2 TRAMA: " + trama.toString());
@@ -216,7 +210,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < d.length; i++) {
             message = Hype.send(data, d[i], false);
         }
-
+        Mensajes.getInstance().addMensajesEnviados(text);
         //Log.v(TAG, "##### El mensaje que salio fue: " + new String(message.getData(), "UTF-8"));
         return true;
     }
@@ -233,13 +227,13 @@ public class HomeFragment extends Fragment {
         Log.v(TAG, "##### ----------------> 0 TRAMA: " + trama.toString());
 
         //idUSer
-        trama.append(memoryData.getData("user"));
+        trama.append(ComponentDataBase.getInstance().getIdUser());
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 1 TRAMA: " + trama.toString());
 
         //idMensaje
-        int temp = memoryData.getData("lastMsg") == "" ? 0 : Integer.valueOf(memoryData.getData("lastMsg"));
-        memoryData.saveData("lastMsg",String.valueOf(temp +1));
+        int temp = ComponentDataBase.getInstance().getLastIdMensaje() + 1;
+        ComponentDataBase.getInstance().setLastIdMensaje(temp);
         trama.append(temp);
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 2 TRAMA: " + trama.toString());
@@ -269,6 +263,7 @@ public class HomeFragment extends Fragment {
             message = Hype.send(data, d[i], false);
         }
 
+        Mensajes.getInstance().addMensajesEnviados(text);
         //Log.v(TAG, "##### El mensaje que salio fue: " + new String(message.getData(), "UTF-8"));
         return true;
     }

@@ -8,7 +8,9 @@ public class Mensajes {
     private static final Mensajes instance = new Mensajes();
 
     private HashMap<Integer, TipoMensaje> mensajes;
+    private HashMap<Integer, TipoMensaje> mensajesEnviado;
     private Integer index;
+    private Integer indexEnviado;
     private String tabla;
 
     public static Mensajes getInstance() {
@@ -18,18 +20,32 @@ public class Mensajes {
     private Mensajes() {
         mensajes = new HashMap<>();
         index = 0;
+        indexEnviado = 0;
         tabla = new String();
     }
 
     public void addMensajes(String message) {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
-        if (existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())){
-            Log.v(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado previamente: "+ index);
+        if (tipoMensaje.getIdUser().intValue() != ComponentDataBase.getInstance().getIdUser().intValue()
+                && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())){
+            Log.v(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: "+ index);
             return;
         }
         this.mensajes.put(index, tipoMensaje);
         Log.v(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: "+ index);
+        index = index + 1;
+    }
+
+    public void addMensajesEnviados(String message) {
+        TipoMensaje tipoMensaje = new TipoMensaje(message);
+
+        this.mensajesEnviado.put(indexEnviado, tipoMensaje);
+        Log.v(getClass().getSimpleName(), "----------------> Mensaje privado agregado al registro"+ index);
+        indexEnviado = indexEnviado + 1;
+
+        this.mensajes.put(index, tipoMensaje);
+        Log.v(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: "+ index);
         index = index + 1;
     }
 

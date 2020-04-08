@@ -4,6 +4,7 @@ public class Reloj implements Runnable {
 
     private static final Reloj instance = new Reloj();
     private Long contador;
+    private boolean isAlive;
 
     public static Reloj getInstance() {
         return instance;
@@ -11,6 +12,7 @@ public class Reloj implements Runnable {
 
     private Reloj() {
         contador = 0L;
+        isAlive = false;
     }
 
     public Long getContador(){
@@ -39,7 +41,9 @@ public class Reloj implements Runnable {
     }
 
     public void start() {
-        Thread t = new Thread(this);
-        t.start();
+        if (!isAlive){
+            Thread t = new Thread(this);
+            t.start();
+        }
     }
 }
