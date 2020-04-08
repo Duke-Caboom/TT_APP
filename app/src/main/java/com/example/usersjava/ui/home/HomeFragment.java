@@ -176,6 +176,7 @@ public class HomeFragment extends Fragment {
 
         if (ComponentDataBase.getInstance().getContactos().equalsIgnoreCase("")){
             Log.e(TAG, "##### ----------------> No tiene contactos agregados");
+            Toast.makeText(getActivity(), "No tienes contactos de confianza agregados", Toast.LENGTH_LONG).show();
             return false;
         }
 
