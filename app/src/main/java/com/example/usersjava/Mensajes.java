@@ -19,6 +19,7 @@ public class Mensajes {
 
     private Mensajes() {
         mensajes = new HashMap<>();
+        mensajesEnviado = new HashMap<>();
         index = 0;
         indexEnviado = 0;
         tabla = new String();
@@ -47,6 +48,8 @@ public class Mensajes {
         this.mensajes.put(index, tipoMensaje);
         Log.v(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: "+ index);
         index = index + 1;
+
+        ComponentDataBase.getInstance().addMensaje(tipoMensaje);
     }
 
     public String getTabla(){
@@ -123,45 +126,26 @@ public class Mensajes {
     public String[] getAdapterMensajes(){
         String mensajeA = "";
         HashMap<Integer, String> data= new HashMap();
-
         int j=0;
-
         int sizeMensajes = mensajes.size();
 
-        Log.v(getClass().getSimpleName(), "----------------> Numero de mensajes "+ sizeMensajes);
-
         if (mensajes.size()!=0) {
-
             int id_mensaje= 0;
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i -1;
-                Log.v(getClass().getSimpleName(), "----------------> Buscando el mensaje: " + id_mensaje);
-                Log.v(getClass().getSimpleName(), "----------------> Mensaje: " + id_mensaje + " Publico: "+ this.mensajes.get(id_mensaje).isPublico());
                 if (this.mensajes.get(id_mensaje).isPublico()){
-                    Log.v(getClass().getSimpleName(), "Esto es un mensaje Publico y lo puedo mostrar jeje: " +
-                            "De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes());
-
-                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes();
-
+                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
+                            "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
+                            this.mensajes.get(id_mensaje).getMensajes();
                     data.put(j, mensajeA);
                     j++;
-
-                }else{
-                    Log.v(getClass().getSimpleName(), "Esto es un mensaje privado y no lo puedo mostrar jeje: " +
-                            "De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes());
                 }
             }
-
-
-            Log.v(getClass().getSimpleName(), "----------------> data.size(): "+ data.size());
             String[] dataS= new String[data.size()];
-
             for (int i=0; i < data.size();i++){
                 dataS[i] = data.get(i);
             }
-
             return dataS;
-
         }else{
             Log.v(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
             return null;
@@ -171,35 +155,22 @@ public class Mensajes {
     public String[] getAdapterMensajesPrivado(){
         String mensajeA = "";
         HashMap<Integer, String> data= new HashMap();
-
         int j=0;
-
         int sizeMensajes = mensajes.size();
 
-        Log.v(getClass().getSimpleName(), "----------------> Numero de mensajes "+ sizeMensajes);
-
         if (mensajes.size()!=0) {
-
             int id_mensaje= 0;
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i -1;
-                Log.v(getClass().getSimpleName(), "----------------> Buscando el mensaje: " + id_mensaje);
-                Log.v(getClass().getSimpleName(), "----------------> Mensaje: " + id_mensaje + " Publico: "+ this.mensajes.get(id_mensaje).isPublico());
+
                 if (this.mensajes.get(id_mensaje).isPublico() == false){
-                    Log.v(getClass().getSimpleName(), "Esto es un mensaje Privado y lo wa mostrar jeje: " +
-                            "De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes());
-
-                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes();
-
+                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
+                            "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
+                            this.mensajes.get(id_mensaje).getMensajes();
                     data.put(j, mensajeA);
                     j++;
-
-                }else{
-                    Log.v(getClass().getSimpleName(), "Esto es un mensaje privado y no lo puedo mostrar jeje: " +
-                            "De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+this.mensajes.get(id_mensaje).getMensajes());
                 }
             }
-
 
             Log.v(getClass().getSimpleName(), "----------------> data.size(): "+ data.size());
             String[] dataS= new String[data.size()];
@@ -207,12 +178,23 @@ public class Mensajes {
             for (int i=0; i < data.size();i++){
                 dataS[i] = data.get(i);
             }
-
             return dataS;
-
         }else{
             Log.v(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
             return null;
         }
+    }
+
+    public void startApp(){
+        Log.e(getClass().getSimpleName(), "----------------> Cargando tabla desde BD");
+        HashMap<Integer, TipoMensaje> temp = ComponentDataBase.getInstance().getLatestMessages();
+        if(temp != null){
+            this.mensajes = temp;
+            index = this.mensajes.size();
+            Log.e(getClass().getSimpleName(), "----------------> Tabla Cargada");
+        }else{
+            Log.e(getClass().getSimpleName(), "----------------> Sin Mensajes");
+        }
+
     }
 }

@@ -2,6 +2,10 @@ package com.example.usersjava;
 
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TipoMensaje {
     private Long contador;
     private Integer idUser;
@@ -9,6 +13,24 @@ public class TipoMensaje {
     private boolean publico;
     private String[] destinatarios;
     private String mensajes;
+    private String hora;
+    private String fecha;
+
+    public TipoMensaje(Long contador, Integer idUser, String idMensaje, int publico, String destinatarios, String mensajes, String hora, String fecha) {
+        this.contador = contador;
+        this.idUser = idUser;
+        this.idMensaje = idMensaje;
+        this.publico = publico ==1 ? true : false;
+        if (publico == 0){
+            this.destinatarios =  destinatarios.split(",");
+        }
+        this.mensajes = mensajes;
+        this.hora = hora;
+        this.fecha = fecha;
+    }
+
+    public TipoMensaje() {
+    }
 
 
     public String getIdMensaje() {
@@ -47,6 +69,20 @@ public class TipoMensaje {
         }catch (Exception e){
             Log.i(getClass().getSimpleName(), "Error al tratar de parsear el mensaje");
         }
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.fecha = dateFormat.format(date);
+
+        dateFormat = new SimpleDateFormat("HH:mm:ss");
+        this.hora = dateFormat.format(date);
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public String getFecha() {
+        return fecha;
     }
 
     public String getKeyValue(){
@@ -89,5 +125,18 @@ public class TipoMensaje {
 
     public boolean isPublico() {
         return publico;
+    }
+
+    public String getDestinatarios() {
+        String string = "";
+
+        for (String destinatario : destinatarios){
+            string = string + destinatario + ",";
+        }
+        string = string + ",,";
+        string.replace(",,,","");
+
+        Log.e(getClass().getSimpleName(), "----------------> destinatario:" + string);
+        return string;
     }
 }

@@ -263,7 +263,7 @@ public class HomeFragment extends Fragment {
             message = Hype.send(data, d[i], false);
         }
 
-        Mensajes.getInstance().addMensajesEnviados(text);
+        Mensajes.getInstance().addMensajesEnviados(trama.toString());
         //Log.v(TAG, "##### El mensaje que salio fue: " + new String(message.getData(), "UTF-8"));
         return true;
     }

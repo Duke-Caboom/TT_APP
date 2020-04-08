@@ -1,6 +1,7 @@
 package com.example.usersjava;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import androidx.navigation.NavController;
@@ -34,11 +35,10 @@ public class MainActivity extends AppCompatActivity{
         MemoryData memoryData = MemoryData.getInstance(this);
 
         if(ComponentDataBase.getInstance().getIdUser() == 0){
-            ComponentDataBase.getInstance().setIdUser(Integer.valueOf(memoryData.getData("user")));
+            //ComponentDataBase.getInstance().setIdUser(Integer.valueOf(memoryData.getData("user")));
+            ComponentDataBase.getInstance().setIdUser(1234567);
         }
 
-        final ChatApplication chatApplication = (ChatApplication)getApplication();
-        chatApplication.setActivity(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity{
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
+        final ChatApplication chatApplication = (ChatApplication)getApplication();
+        chatApplication.setActivity(this);
+        chatApplication.configChatApp();
     }
 
     @Override

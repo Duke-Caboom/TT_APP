@@ -32,7 +32,7 @@ public class Reloj implements Runnable {
                 if (contador == 10800){
                     contador = 0L;
                 }
-                //Log.v(getClass().getSimpleName(), "Contador: "+contador);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

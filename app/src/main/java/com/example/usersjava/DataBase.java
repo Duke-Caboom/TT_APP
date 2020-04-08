@@ -8,18 +8,20 @@ import androidx.annotation.Nullable;
 
 public class DataBase  extends SQLiteOpenHelper {
 
-
     public DataBase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table mensajes(idUser int primary key, " +
-                                          "idMensaje text primary key, " +
+        db.execSQL("create table mensajes(secuencia int primary key," +
+                "                          idUser int, " +
+                                          "idMensaje text, " +
                                             "publico int," +
                                             "destinatarios text," +
-                                            "mensaje text)");
+                                            "mensaje text,"+
+                                            "fecha text,"+
+                                            "hora text)");
     }
 
     @Override

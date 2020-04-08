@@ -40,14 +40,13 @@ import com.hypelabs.hype.StateObserver;
 
 import java.io.UnsupportedEncodingException;
 
-import Library.MemoryData;
-
-public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate {
+public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate, Runnable {
 
     public static String announcement = android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL;
     private static final String TAG = ChatApplication.class.getName();
 
     private boolean isConfigured = false;
+    private boolean isRun = false;
     private Activity activity;
 
     public void setActivity(Activity activity) {
@@ -56,8 +55,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onApplicationStart(Application app) {
-        configureHype();
-        Reloj.getInstance().start();
+        //Thread t = new Thread(this);
+        //t.start();
     }
 
     @Override
@@ -219,11 +218,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
             try {
                 byte[] data = trama.toString().getBytes("UTF-8");
-
                 message = Hype.send(data, instance, false);
-
-                Log.v(getClass().getSimpleName(), "----------------> TABLA COMPARTIDA CORRECTAMENTE");
-
             } catch (Exception e) {
                 Log.v(getClass().getSimpleName(), "----------------> ALGO FALLO AL COMPARTIR LA TABLA");
                 e.printStackTrace();
@@ -296,5 +291,24 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         super.onCreate();
         // See BaseApplication.java
         setLifecyleDelegate(this);
+    }
+
+    @Override
+    public void run() {
+        boolean config= false;
+        while(!config){
+            if (ComponentDataBase.getInstance() != null){
+                configChatApp();
+                config = true;
+            }
+        }
+    }
+
+    public void configChatApp(){
+        if (!isConfigured){
+            Reloj.getInstance().start();
+            Mensajes.getInstance().startApp();
+            configureHype();
+        }
     }
 }
