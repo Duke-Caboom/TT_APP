@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.usersjava.MainActivity;
@@ -15,6 +16,8 @@ import com.example.usersjava.VerifyEmail;
 import com.example.usersjava.VerifyPassword;
 import com.example.usersjava.databinding.VerifyEmailBinding;
 import com.example.usersjava.databinding.VerifyPasswordBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import Interfaces.IonClick;
 import Library.MemoryData;
@@ -102,6 +109,25 @@ public class LoginViewModels extends ViewModel implements IonClick {
                 mAuth.signInWithEmailAndPassword(emailData,passwordUI.getValue())
                         .addOnCompleteListener(_activity,(task)->{
                             if (task.isSuccessful()){
+
+                                DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users").
+                                        document(emailData);
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()){
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()){
+                                                Log.e(getClass().getName(), "Document: "+document.getData());
+                                            }else{
+                                                Log.e(getClass().getName(), "No such document");
+                                            }
+                                        }else{
+                                            Log.e(getClass().getName(), "get failed: "+ task.getException());
+                                        }
+                                    }
+                                });
+
                                 memoryData = MemoryData.getInstance(_activity);
                                 memoryData.saveData("user",emailData);
                                 _activity.startActivity(new Intent(_activity, MainActivity.class)

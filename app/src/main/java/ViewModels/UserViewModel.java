@@ -203,6 +203,7 @@ public class UserViewModel extends ViewModel implements IonClick {
                     user.put(Collections.User.NAME, nameUI.getValue());
                     user.put(Collections.User.TEL, telUI.getValue());
                     user.put(Collections.User.SEXO, role);
+                    user.put(Collections.User.CONTACTOS, "");
                     //user.put(Collections.User.IMAGE, image);
                     mAuth.signInWithEmailAndPassword(emailUI.getValue(), passwordUI.getValue())
                             .addOnCompleteListener(_activity, (task1) -> {

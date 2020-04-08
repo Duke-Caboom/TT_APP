@@ -7,6 +7,7 @@ public class Collections {
         public static String NAME = "Nombre";
         public static String TEL = "Telefono";
         public static String SEXO = "Sexo";
+        public static String CONTACTOS = "Contactos";
         public static String IMAGE = "Image";
         public static String USERS= "Users";
     }
