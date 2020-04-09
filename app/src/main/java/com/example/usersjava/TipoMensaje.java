@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class TipoMensaje {
     private Long contador;
-    private Integer idUser;
+    private String idUser;
     private String idMensaje;
     private boolean publico;
     private String[] destinatarios;
@@ -16,7 +16,7 @@ public class TipoMensaje {
     private String hora;
     private String fecha;
 
-    public TipoMensaje(Long contador, Integer idUser, String idMensaje, int publico, String destinatarios, String mensajes, String hora, String fecha) {
+    public TipoMensaje(Long contador, String idUser, String idMensaje, int publico, String destinatarios, String mensajes, String hora, String fecha) {
         this.contador = contador;
         this.idUser = idUser;
         this.idMensaje = idMensaje;
@@ -51,14 +51,14 @@ public class TipoMensaje {
 
             if (parts.length == 5){
                 Log.i(getClass().getSimpleName(), "Se trata de un mensaje privado morrito");
-                this.idUser = Integer.valueOf(parts[0]);
+                this.idUser = parts[0];
                 this.idMensaje= parts[1];
                 this.publico= parts[2].equalsIgnoreCase("1") ? true : false;
                 this.destinatarios =  parts[3].split(",");
                 this.mensajes = parts[4];
             }else if (parts.length ==4){
                 Log.i(getClass().getSimpleName(), "Se trata de un mensaje Publico morrito");
-                this.idUser = Integer.valueOf(parts[0]);
+                this.idUser = parts[0];
                 this.idMensaje= parts[1];
                 this.publico= parts[2].equalsIgnoreCase("1") ? true : false;
                 this.mensajes = parts[3];
@@ -119,7 +119,7 @@ public class TipoMensaje {
         return mensajes;
     }
 
-    public Integer getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 

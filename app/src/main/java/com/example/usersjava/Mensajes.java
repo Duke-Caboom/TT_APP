@@ -28,7 +28,7 @@ public class Mensajes {
     public void addMensajes(String message) {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
-        if (tipoMensaje.getIdUser().intValue() != ComponentDataBase.getInstance().getIdUser().intValue()
+        if (!tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
                 && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())){
             Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: "+ index);
             return;
@@ -100,7 +100,7 @@ public class Mensajes {
         return true;
     }
 
-    public boolean existsMessage(Integer idUser, String idMensaje){
+    public boolean existsMessage(String idUser, String idMensaje){
 
         if (this.mensajes.size()!= 0){
 
@@ -112,7 +112,7 @@ public class Mensajes {
 
                 if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)){
                     Log.e(getClass().getSimpleName(),"Mismo ID");
-                    if (temp.getIdUser().intValue() == idUser.intValue()) {
+                    if (temp.getIdUser().equalsIgnoreCase(idUser)) {
                         Log.e(getClass().getSimpleName(),"Mismo Usuario");
                         return true;
                     }
