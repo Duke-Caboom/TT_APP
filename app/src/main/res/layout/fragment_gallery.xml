@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:srcCompat="@mipmap/ic_logos"/>
-                    <com.google.android.material.textfield.TextInputLayout
+                    <!--<com.google.android.material.textfield.TextInputLayout
                         android:capitalize="sentences"
                         android:inputType="textCapSentences|textNoSuggestions"
                         android:privateImeOptions="nm"
@@ -160,7 +160,7 @@
 
                             >
                         </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/email_text_input"

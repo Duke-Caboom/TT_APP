@@ -23,10 +23,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_person_add_24px"
                 android:title="@string/menu_share" />
-            <item
+            <!--<item
                 android:id="@+id/nav_tools"
                 android:icon="@drawable/ic_cloud_upload_24px"
-                android:title="@string/menu_tools" />
+                android:title="@string/menu_tools" />-->
         </menu>
     </item>
     <item android:title="Aplicación">
