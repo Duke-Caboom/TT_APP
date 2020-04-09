@@ -136,7 +136,7 @@ public class Mensajes {
                 if (this.mensajes.get(id_mensaje).isPublico()){
                     mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
                             "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
-                            this.mensajes.get(id_mensaje).getMensajes();
+                            this.mensajes.get(id_mensaje).getMensajes().replace("|!","\n");
                     data.put(j, mensajeA);
                     j++;
                 }

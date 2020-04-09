@@ -33,8 +33,10 @@ public class MainActivity extends AppCompatActivity{
         setContactActivity(this);
 
         MemoryData memoryData = MemoryData.getInstance(this);
-
-        if(ComponentDataBase.getInstance().getIdUser() == ""){
+        Log.e(getClass().getSimpleName(), "----------------> "+ComponentDataBase.getInstance().getIdUser());
+        Log.e(getClass().getSimpleName(), "----------------> "+memoryData.getData("user").trim());
+        if(ComponentDataBase.getInstance().getIdUser().equalsIgnoreCase("")
+                && memoryData.getData("user").trim().equalsIgnoreCase("")){
             ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
             //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
         }
@@ -82,24 +84,6 @@ public class MainActivity extends AppCompatActivity{
 
     private static void setContactActivity(MainActivity instance) {
         defaultInstance = new WeakReference<>(instance);
-    }
-
-    /*public void requestPermissions(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_ACCESS_COARSE_LOCATION_ID);
-        } else {
-            ChatApplication chatApplication = (ChatApplication) getApplication();
-            chatApplication.requestHypeToStart();
-        }
-    }*/
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_ACCESS_COARSE_LOCATION_ID) {
-            ChatApplication chatApplication = (ChatApplication) getApplication();
-            chatApplication.requestHypeToStart();
-        }
     }
 
 }

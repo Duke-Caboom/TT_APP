@@ -45,10 +45,10 @@
     <string name="privada">Privada</string>
     <string name="publica">Publica</string>
     <string name="Solicitar">Enviar</string>
-    <string name="asalto">Asalto \n Me acaban de asaltar, ayuda</string>
-    <string name="temblor">Temblor \n Estoy bajo los escombros, ayuda</string>
-    <string name="incendio">Incendio \n Hay un incendio en mi casa ayuda, ayuda</string>
-    <string name="secuestro">Secuestro \n Me estan secuestrando, ayuda</string>
+    <string name="asalto">Me acaban de asaltar, ayuda</string>
+    <string name="temblor">Estoy bajo los escombros, ayuda</string>
+    <string name="incendio">Hay un incendio en mi casa ayuda</string>
+    <string name="secuestro">Me estan secuestrando, ayuda</string>
     <string name="fail_register2">Fallo</string>
 
     <string name="welcome2">Bienvenido</string>

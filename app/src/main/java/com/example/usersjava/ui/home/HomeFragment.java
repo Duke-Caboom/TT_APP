@@ -141,8 +141,9 @@ public class HomeFragment extends Fragment {
     //################################################
 
     private void enviarMensaje() {
-        String text = inputMensaje.getText().toString().trim();
-
+        String text = inputMensaje.getText().toString();
+        text = text.replace("\n","|!");
+        Log.v(TAG, "##### Texto: "+text);
         //Si el mensaje es nulo o esta vacio no se manda
         if (text == null || text.length() == 0)
             return;
@@ -262,7 +263,7 @@ public class HomeFragment extends Fragment {
 
         //Mensaje
         trama.append(text);
-        trama.append(". Localizacion Apox: "+String.valueOf(latitud)+","+String.valueOf(longitud));
+        trama.append("|!Localizacion Apox: "+String.valueOf(latitud)+","+String.valueOf(longitud));
         Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
 
         //Convierte trama a Bytes
@@ -300,8 +301,6 @@ public class HomeFragment extends Fragment {
         if (location != null) {
             Log.d("Latitud", String.valueOf(location.getLatitude()));
             Log.d("Longitud", String.valueOf(location.getLongitude()));
-            //longitud.setText("Longitud" + String.valueOf(location.getLongitude()));
-            //latitud.setText("Latitud" + String.valueOf(location.getLatitude()));
         }
 
     }
@@ -339,5 +338,4 @@ public class HomeFragment extends Fragment {
 
         }
     }
-
 }

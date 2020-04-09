@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
+import com.example.usersjava.ComponentDataBase;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.R;
 import com.example.usersjava.VerifyEmail;
@@ -117,8 +118,7 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         if (task.isSuccessful()){
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()){
-                                                memoryData = MemoryData.getInstance(_activity);
-                                                memoryData.saveData("user",document.getData().get("Telefono").toString());
+                                                ComponentDataBase.getInstance().setIdUser(document.getData().get("Telefono").toString());
                                             }else{
                                                 Log.e(getClass().getName(), "No such document");
                                             }
@@ -127,6 +127,7 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         }
                                     }
                                 });
+                                memoryData = MemoryData.getInstance(_activity);
                                 _activity.startActivity(new Intent(_activity, MainActivity.class)
                                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
                                                 .FLAG_ACTIVITY_NEW_TASK));
