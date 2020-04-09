@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.lang.ref.WeakReference;
-import java.util.Scanner;
 
 import Library.MemoryData;
 
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
 
         if(ComponentDataBase.getInstance().getIdUser() == ""){
             ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
+            //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
         }
 
 

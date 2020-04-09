@@ -42,7 +42,7 @@ public class Mensajes {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
         this.mensajesEnviado.put(indexEnviado, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Mensaje privado agregado al registro"+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Mensaje enviado agregado al registro"+ index);
         indexEnviado = indexEnviado + 1;
 
         this.mensajes.put(index, tipoMensaje);
@@ -147,7 +147,7 @@ public class Mensajes {
             }
             return dataS;
         }else{
-            Log.e(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
+            Log.e(getClass().getSimpleName(), "----------------> No hay menajes publicos para mostrar");
             return null;
         }
     }
@@ -171,8 +171,6 @@ public class Mensajes {
                     j++;
                 }
             }
-
-            Log.e(getClass().getSimpleName(), "----------------> data.size(): "+ data.size());
             String[] dataS= new String[data.size()];
 
             for (int i=0; i < data.size();i++){
@@ -180,7 +178,7 @@ public class Mensajes {
             }
             return dataS;
         }else{
-            Log.e(getClass().getSimpleName(), "----------------> No hay menajes para mostrar eseeeee");
+            Log.e(getClass().getSimpleName(), "----------------> No hay menajes Privados para mostrar");
             return null;
         }
     }

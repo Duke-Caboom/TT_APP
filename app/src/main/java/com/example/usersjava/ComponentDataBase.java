@@ -115,7 +115,7 @@ public class ComponentDataBase {
         ContentValues contentValues = new
                 ContentValues();
         contentValues.put("secuencia", getLatestIndexBD());
-        contentValues.put("idUser", mensaje.getIdMensaje());
+        contentValues.put("idUser", mensaje.getIdUser());
         contentValues.put("idMensaje", mensaje.getIdMensaje());
         contentValues.put("publico", mensaje.isPublico());
         if (!mensaje.isPublico()) {

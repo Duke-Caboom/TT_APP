@@ -62,7 +62,6 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             Mensajes.getInstance().startApp();
             configureHype();
         }
-
     }
 
     @Override

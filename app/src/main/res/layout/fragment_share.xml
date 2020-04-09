@@ -88,56 +88,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:srcCompat="@mipmap/ic_logos"/>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:capitalize="sentences"
-                        android:inputType="textCapSentences|textNoSuggestions"
-                        android:privateImeOptions="nm"
-                        android:id="@+id/name_text_input"
-                        style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:hint="@string/name"
-                        android:textColorHint="@color/colorBlack"
-                        app:errorEnabled="true"
-                        app:hintTextColor="@color/colorBlack">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:capitalize="sentences"
-                            android:inputType="textCapSentences|textNoSuggestions"
-                            android:privateImeOptions="nm"
-                            android:id="@+id/name_edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/lastname_text_input"
-                        style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:hint="@string/Lastname"
-                        android:capitalize="sentences"
-                        android:inputType="textCapSentences|textNoSuggestions"
-                        android:textColorHint="@color/colorBlack"
-                        app:errorEnabled="true"
-                        app:hintTextColor="@color/colorBlack">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/lastname_edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:capitalize="sentences"
-                            android:inputType="textCapSentences|textNoSuggestions"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"
-
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tel_text_input"
@@ -158,28 +108,6 @@
                             android:inputType="phone"
                             android:textColorHint="@color/colorBlack"
 
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/email_text_input"
-                        style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:hint="@string/prompt_email2"
-                        android:inputType="text|textNoSuggestions"
-                        android:textColorHint="@color/colorBlack"
-                        app:errorEnabled="true"
-                        app:hintTextColor="@color/colorBlack">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/email_edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"
                             >
                         </com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
