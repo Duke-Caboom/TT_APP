@@ -163,7 +163,7 @@
                     </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/email_text_input"
+                        android:id="@+id/email_text_input_restablecer"
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
@@ -174,7 +174,7 @@
                         app:hintTextColor="@color/colorBlack">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/email_edit_text"
+                            android:id="@+id/email_edit_text_restablecer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
@@ -238,7 +238,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
                     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                        android:id="@+id/buttonCancel"
+                        android:id="@+id/buttonCancelRestablecer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -250,7 +250,7 @@
 
                         />
                     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                        android:id="@+id/buttonAddUser"
+                        android:id="@+id/buttonRestablecer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -260,12 +260,7 @@
                         app:backgroundTint="@color/colorBlack"
                         app:rippleColor="@color/colorWhite"
                         />
-                    <ProgressBar
-                        android:id="@+id/progressBarActDatPers"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
