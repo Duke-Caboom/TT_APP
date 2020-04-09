@@ -109,7 +109,6 @@ public class LoginViewModels extends ViewModel implements IonClick {
                 mAuth.signInWithEmailAndPassword(emailData,passwordUI.getValue())
                         .addOnCompleteListener(_activity,(task)->{
                             if (task.isSuccessful()){
-                                String tel = "";
                                 DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users").
                                         document(emailData);
                                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -118,10 +117,8 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         if (task.isSuccessful()){
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()){
-                                                Log.e(getClass().getName(), "######Document: "+document.getData());
-                                                Log.e(getClass().getName(), "Document: "+document.getData().containsKey("Telefono"));
-                                                Log.e(getClass().getName(), "Document: "+document.getData().get("Telefono"));
-
+                                                memoryData = MemoryData.getInstance(_activity);
+                                                memoryData.saveData("user",document.getData().get("Telefono").toString());
                                             }else{
                                                 Log.e(getClass().getName(), "No such document");
                                             }
@@ -130,9 +127,6 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         }
                                     }
                                 });
-                                memoryData = MemoryData.getInstance(_activity);
-                                memoryData.saveData("user", tel);
-                                Log.e(getClass().getName(), "############# ID: "+memoryData.getData("user"));
                                 _activity.startActivity(new Intent(_activity, MainActivity.class)
                                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
                                                 .FLAG_ACTIVITY_NEW_TASK));
