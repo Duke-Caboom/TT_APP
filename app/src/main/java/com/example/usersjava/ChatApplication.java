@@ -82,7 +82,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
         Hype.setTransportType(31);
-        Hype.setUserIdentifier(ComponentDataBase.getInstance().getIdUser());
+        //Hype.setUserIdentifier(ComponentDataBase.getInstance().getIdUser());
         Hype.setAppIdentifier("c28a6ca4");
 
         try {

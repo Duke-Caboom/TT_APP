@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -91,16 +92,6 @@ public class UserViewModel extends ViewModel implements IonClick {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            /*case R.id.buttonCamera:
-                if (_permissions.CAMERA() && _permissions.STORAGE()) {
-                    _multimedia.dispatchTakePictureIntent();
-                }
-                break;
-            case R.id.buttonGallery:
-                if (_permissions.STORAGE()) {
-                    _multimedia.cropCapturedImage(1);
-                }
-                break;*/
             case R.id.buttonAddUser:
                 AddUser();
                 break;
@@ -214,7 +205,7 @@ public class UserViewModel extends ViewModel implements IonClick {
                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
                                                     .FLAG_ACTIVITY_NEW_TASK));
                                 } else {
-                                    System.out.println("fallo");
+                                    Log.e(getClass().getName(), "###### FALLO");
                                 }
 
                             });

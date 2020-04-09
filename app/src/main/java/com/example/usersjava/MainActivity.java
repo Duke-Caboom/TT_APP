@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.lang.ref.WeakReference;
+import java.util.Scanner;
 
 import Library.MemoryData;
 
@@ -34,9 +35,8 @@ public class MainActivity extends AppCompatActivity{
 
         MemoryData memoryData = MemoryData.getInstance(this);
 
-        if(ComponentDataBase.getInstance().getIdUser() == 0){
-            //ComponentDataBase.getInstance().setIdUser(Integer.valueOf(memoryData.getData("user")));
-            ComponentDataBase.getInstance().setIdUser(1234567);
+        if(ComponentDataBase.getInstance().getIdUser() == ""){
+            ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
         }
 
 

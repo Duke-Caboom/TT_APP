@@ -24,6 +24,7 @@ public class ComponentDataBase {
     private ComponentDataBase() {
         this.sharedPreferences = MainActivity.getDefaultInstance().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        contactos = new ArrayList<>();
         updateContactos();
     }
 
@@ -43,12 +44,12 @@ public class ComponentDataBase {
         return index;
     }
 
-    public Integer getIdUser() {
-        return sharedPreferences.getInt("idUser", 0);
+    public String getIdUser() {
+        return sharedPreferences.getString("idUser", "");
     }
 
-    public void setIdUser(Integer idUser) {
-        editor.putInt("idUser", idUser);
+    public void setIdUser(String idUser) {
+        editor.putString("idUser", idUser);
         editor.apply();
     }
 
@@ -137,7 +138,7 @@ public class ComponentDataBase {
         Cursor fila = sqLiteDatabase.rawQuery("select idUser, idMensaje, publico, destinatarios, mensaje, fecha, hora from mensajes order by secuencia", null);
         if (fila.moveToFirst()) {
             TipoMensaje tipoMensaje = new TipoMensaje(-1L,
-                    fila.getInt(0),
+                    fila.getString(0),
                     fila.getString(1),
                     fila.getInt(2),
                     fila.getString(3),
