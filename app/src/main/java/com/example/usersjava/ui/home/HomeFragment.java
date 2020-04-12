@@ -82,8 +82,8 @@ public class HomeFragment extends Fragment {
         radioPrivada = root.findViewById(R.id.radioPrivada);
         radioPublica = root.findViewById(R.id.radioPublica);
         inputMensaje = root.findViewById(R.id.editAyuda);
-        buttonEnviar = (Button) root.findViewById(R.id.buttonEnviar);
-        textMSG1 = root.findViewById(R.id.msg1);
+        buttonEnviar = (Button) root.findViewById(R.id.buttonAgregar);
+        textMSG1 = root.findViewById(R.id.Text);
         textMSG2 = root.findViewById(R.id.msg2);
         textMSG4 = root.findViewById(R.id.msg4);
         textMSG5 = root.findViewById(R.id.msg5);
@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < d.length; i++) {
             message = Hype.send(data, d[i], false);
         }
-        Mensajes.getInstance().addMensajesEnviados(text);
+        Mensajes.getInstance().addMensajesEnviados(trama.toString());
         //Log.v(TAG, "##### El mensaje que salio fue: " + new String(message.getData(), "UTF-8"));
         return true;
     }

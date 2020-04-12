@@ -118,7 +118,11 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         if (task.isSuccessful()){
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()){
-                                                ComponentDataBase.getInstance().setIdUser(document.getData().get("Telefono").toString());
+                                                memoryData = MemoryData.getInstance(_activity);
+                                                memoryData.saveData("user",document.getData().get("Telefono").toString());
+                                                _activity.startActivity(new Intent(_activity, MainActivity.class)
+                                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+                                                                .FLAG_ACTIVITY_NEW_TASK));
                                             }else{
                                                 Log.e(getClass().getName(), "No such document");
                                             }
@@ -127,15 +131,10 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                         }
                                     }
                                 });
-                                memoryData = MemoryData.getInstance(_activity);
-                                _activity.startActivity(new Intent(_activity, MainActivity.class)
-                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
-                                                .FLAG_ACTIVITY_NEW_TASK));
                             }else{
                                 Snackbar.make(_bindingPassword.passwordEditText,
                                         R.string.invalid_credentials, Snackbar.LENGTH_LONG).show();
                             }
-
                         });
             }else{
                 Snackbar.make(_bindingPassword.passwordEditText,

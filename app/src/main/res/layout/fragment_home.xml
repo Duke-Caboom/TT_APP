@@ -57,7 +57,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/msg1"
+            android:id="@+id/Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -150,7 +150,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/buttonEnviar"
+                    android:id="@+id/buttonAgregar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"

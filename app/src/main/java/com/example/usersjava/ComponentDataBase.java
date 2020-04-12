@@ -15,7 +15,7 @@ public class ComponentDataBase {
     private static final ComponentDataBase instance = new ComponentDataBase();
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private ArrayList<String> contactos;
+    //private ArrayList<String> contactos;
 
     public static ComponentDataBase getInstance() {
         return instance;
@@ -24,17 +24,6 @@ public class ComponentDataBase {
     private ComponentDataBase() {
         this.sharedPreferences = MainActivity.getDefaultInstance().getPreferences(Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        contactos = new ArrayList<>();
-        updateContactos();
-    }
-
-    private void updateContactos(){
-        if (sharedPreferences.getString("contactos", "") != "") {
-            String[] data = sharedPreferences.getString("contactos", "").split(",");
-            for (String contacto : data){
-                contactos.add(contacto);
-            }
-        }
     }
 
     private int getLatestIndexBD() {
@@ -59,50 +48,81 @@ public class ComponentDataBase {
     }
 
     public String getContactos() {
-        String data = "";
-        if (contactos.size() == 0){
+        String data = sharedPreferences.getString("contactos", "");
+        String[] contac;
+        if (data.equalsIgnoreCase("")) {
             return data;
         }
+        String[] contactos = data.split(",");
+        data ="";
         for (String contacto : contactos) {
-            data = data + contacto + ",";
+            contac = contacto.split(":");
+            data = data + contac[1] + ",";
         }
         data = data + ",,";
         data = data.replace(",,,", "");
         return data;
     }
 
-    public void addContacto(String contacto) {
-        for (String data : contactos) {
-            if (data.equalsIgnoreCase(contacto)){
-                Log.e(getClass().getName(), "El contacto ya existe");
-                return;
-            }
-        }
+    public String[] getAdaptadorContactos() {
         String data = sharedPreferences.getString("contactos", "");
 
-        if (data != ""){
-            editor.putString("contactos", data + "," +contacto);
-        }else{
-            editor.putString("contactos", contacto);
+        String[] contac;
+        if (data.equalsIgnoreCase("")) {
+            return null;
         }
-        editor.apply();
-        updateContactos();
+        String[] contactos = data.split(",");
+        String[] adapatdor = new String[contactos.length];
+        int i = 0;
+        for (String contacto : contactos) {
+            contac = contacto.split(":");
+            adapatdor[i] = contac[0] +":"+ contac[1];
+            i++;
+        }
+        return adapatdor;
     }
 
-    public void delContacto(String contacto) {
-        String buff="";
-        for (String data : contactos) {
-            if (data.equalsIgnoreCase(contacto)){
-                Log.e(getClass().getName(), "Eliminando contacto");
-            }else{
-                data=data + contacto + ",";
+
+    public void addContacto(String parenteco, String numero) {
+        String data = sharedPreferences.getString("contactos", "");
+        String[] contac;
+        if(data != ""){
+            String[] contactos = data.split(",");
+            for (String contacto : contactos) {
+                String[] split = contacto.split(":");
+                if (split[1].equalsIgnoreCase(numero)) {
+                    Log.e(getClass().getName(), "El contacto ya existe");
+                    return;
+                }
             }
         }
-        if (buff.lastIndexOf(',') == buff.length()-1){
-            buff = buff + ",,";
-            buff = buff.replace(",,,","");
+
+        if (data != "") {
+            editor.putString("contactos", data + "," + parenteco + ":" + numero);
+        } else {
+            editor.putString("contactos", parenteco + ":" + numero);
         }
-        updateContactos();
+        editor.apply();
+    }
+
+    public void delContacto(String delCont) {
+        String data = sharedPreferences.getString("contactos", "");
+
+        data = data.replace(delCont,"");
+
+        if(data != ""){
+            data = data.replace(",,","");
+
+            if (data.charAt(0) == ','){
+                data = data.replaceFirst(",","");
+            }
+
+            if (data.charAt(data.length()-1) == ','){
+                data = data.substring(0, data.length()-1);
+            }
+        }
+        editor.putString("contactos", data);
+        editor.apply();
     }
 
     public Integer getLastIdMensaje() {

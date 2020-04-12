@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
         Log.e(getClass().getSimpleName(), "----------------> "+ComponentDataBase.getInstance().getIdUser());
         Log.e(getClass().getSimpleName(), "----------------> "+memoryData.getData("user").trim());
         if(ComponentDataBase.getInstance().getIdUser().equalsIgnoreCase("")
-                && memoryData.getData("user").trim().equalsIgnoreCase("")){
+                && !memoryData.getData("user").trim().equalsIgnoreCase("")){
             ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
             //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
         }

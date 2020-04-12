@@ -133,7 +133,8 @@ public class Mensajes {
             int id_mensaje= 0;
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i -1;
-                if (this.mensajes.get(id_mensaje).isPublico()){
+                if (this.mensajes.get(id_mensaje).isPublico() &&
+                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())){
                     mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
                             "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
                             this.mensajes.get(id_mensaje).getMensajes().replace("|!","\n");
@@ -163,7 +164,8 @@ public class Mensajes {
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i -1;
 
-                if (this.mensajes.get(id_mensaje).isPublico() == false){
+                if (this.mensajes.get(id_mensaje).isPublico() == false &&
+                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())){
                     mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
                             "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
                             this.mensajes.get(id_mensaje).getMensajes();
