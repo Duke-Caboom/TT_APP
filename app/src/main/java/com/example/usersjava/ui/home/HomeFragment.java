@@ -107,31 +107,31 @@ public class HomeFragment extends Fragment {
         textMSG1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG1.getText() + " ");
+                inputMensaje.append(textMSG1.getText().toString().replace("■ ","") + " ");
             }
         });
         textMSG2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG2.getText() + " ");
+                inputMensaje.append(textMSG2.getText().toString().replace("■ ","") + " ");
             }
         });
         textMSG4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG4.getText() + " ");
+                inputMensaje.append(textMSG4.getText().toString().replace("■ ","") + " ");
             }
         });
         textMSG5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG5.getText() + " ");
+                inputMensaje.append(textMSG5.getText().toString().replace("■ ","") + " ");
             }
         });
         textMSG6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG6.getText() + " ");
+                inputMensaje.append(textMSG6.getText().toString().replace("■ ","") + " ");
             }
         });
     }
