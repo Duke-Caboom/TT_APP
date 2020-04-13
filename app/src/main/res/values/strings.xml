@@ -40,7 +40,7 @@
     <string name="Lastname">Apellidos *</string>
     <string name="NumberTell">Número Telefonico *</string>
     <string name="cancel">Cancelar</string>
-    <string name="ok">OK</string>
+    <string name="ok">Registrar</string>
 
     <string name="privada">Privada</string>
     <string name="publica">Publica</string>
