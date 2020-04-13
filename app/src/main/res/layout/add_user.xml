@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -82,11 +81,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="45dp">
+
                     <ImageView
                         android:id="@+id/imageView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@mipmap/ic_logos"/>
+                        app:srcCompat="@mipmap/ic_logos" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:capitalize="sentences"
                         android:inputType="textCapSentences|textNoSuggestions"
@@ -109,8 +110,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
-                            app:binding="@{userModel.nameUI}">
-                        </com.google.android.material.textfield.TextInputEditText>
+                            app:binding="@{userModel.nameUI}"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -133,9 +133,7 @@
                             android:inputType="textCapSentences|textNoSuggestions"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
-                            app:binding="@{userModel.lastnameUI}"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
+                            app:binding="@{userModel.lastnameUI}"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -156,9 +154,7 @@
                             android:textColor="@color/colorWhite"
                             android:inputType="phone"
                             android:textColorHint="@color/colorWhite"
-                            app:binding="@{userModel.telUI}"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
+                            app:binding="@{userModel.telUI}"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -179,8 +175,7 @@
                             android:inputType="textEmailAddress"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
-                            app:binding="@{userModel.emailUI}">
-                        </com.google.android.material.textfield.TextInputEditText>
+                            app:binding="@{userModel.emailUI}"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -200,9 +195,7 @@
                             android:inputType="textPassword"
                             android:textColor="@color/colorWhite"
                             android:textColorHint="@color/colorWhite"
-                            app:binding="@{userModel.passwordUI}"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
+                            app:binding="@{userModel.passwordUI}"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Spinner
@@ -225,9 +218,11 @@
             android:layout_height="70dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -235,6 +230,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
+
                     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                         android:id="@+id/buttonCancel"
                         android:layout_width="wrap_content"
@@ -245,8 +241,8 @@
                         android:textColor="@color/colorWhite"
                         app:backgroundTint="@color/colorBlack"
                         app:rippleColor="@color/colorWhite"
-                        android:onClick="@{userModel::onClick}"
-                        />
+                        android:onClick="@{userModel::onClick}" />
+
                     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                         android:id="@+id/buttonAddUser"
                         android:layout_width="wrap_content"
@@ -257,7 +253,8 @@
                         android:textColor="@color/colorWhite"
                         app:backgroundTint="@color/colorBlack"
                         app:rippleColor="@color/colorWhite"
-                        android:onClick="@{userModel::onClick}"/>
+                        android:onClick="@{userModel::onClick}" />
+
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="?android:attr/progressBarStyle"

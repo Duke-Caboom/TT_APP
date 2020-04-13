@@ -1,19 +1,16 @@
 package ViewModels;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.example.usersjava.ComponentDataBase;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.R;
-import com.example.usersjava.VerifyEmail;
 import com.example.usersjava.VerifyPassword;
 import com.example.usersjava.databinding.VerifyEmailBinding;
 import com.example.usersjava.databinding.VerifyPasswordBinding;
@@ -21,16 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import Interfaces.IonClick;
 import Library.MemoryData;
@@ -56,7 +46,7 @@ public class LoginViewModels extends ViewModel implements IonClick {
         _activity = activity;
         _bindingEmail = bindingEmail;
         _bindingPassword = bindingPassword;
-        if (emailData != null){
+        if (emailData != null) {
             emailUI.setValue(emailData);
         }
         mAuth = FirebaseAuth.getInstance();
@@ -64,7 +54,7 @@ public class LoginViewModels extends ViewModel implements IonClick {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.email_sign_in_button:
                 VerifyEmail();
                 break;
@@ -74,76 +64,82 @@ public class LoginViewModels extends ViewModel implements IonClick {
         }
         //Toast.makeText(_activity,emailUI.getValue(), Toast.LENGTH_SHORT).show();
     }
-    private void VerifyEmail(){
+
+    private void VerifyEmail() {
         boolean cancel = true;
         _bindingEmail.emailEditText.setError(null);
-        if (TextUtils.isEmpty(emailUI.getValue())){
+        if (TextUtils.isEmpty(emailUI.getValue())) {
             _bindingEmail.emailEditText.setError(
                     _activity.getString(R.string.error_field_requered));
             _bindingEmail.emailEditText.requestFocus();
             cancel = false;
-        }else if (!Validate.isEmail(emailUI.getValue())){
+        } else if (!Validate.isEmail(emailUI.getValue())) {
             _bindingEmail.emailEditText.setError(
                     _activity.getString(R.string.error_invalid_email));
             _bindingEmail.emailEditText.requestFocus();
             cancel = false;
         }
-        if (cancel){
+        if (cancel) {
             emailData = emailUI.getValue();
             _activity.startActivity(new Intent(_activity, VerifyPassword.class));
         }
     }
-    private void login(){
+
+    private void login() {
         boolean cancel = true;
         _bindingPassword.passwordEditText.setError(null);
-        if (TextUtils.isEmpty(passwordUI.getValue())){
+        if (TextUtils.isEmpty(passwordUI.getValue())) {
             _bindingPassword.passwordEditText.setError(
                     _activity.getString(R.string.error_field_requered));
             cancel = false;
-        }else if (!isPasswordValid(passwordUI.getValue())){
+        } else if (!isPasswordValid(passwordUI.getValue())) {
             _bindingPassword.passwordEditText.setError(
                     _activity.getString(R.string.error_invalid_password));
             cancel = false;
         }
-        if (cancel){
-            if (new Networks(_activity).verificaNetworks()){
-                mAuth.signInWithEmailAndPassword(emailData,passwordUI.getValue())
-                        .addOnCompleteListener(_activity,(task)->{
-                            if (task.isSuccessful()){
+        if (cancel) {
+            if (new Networks(_activity).verificaNetworks()) {
+                mAuth.signInWithEmailAndPassword(emailData, passwordUI.getValue())
+                        .addOnCompleteListener(_activity, (task) -> {
+                            if (task.isSuccessful()) {
                                 DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users").
                                         document(emailData);
                                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()){
+                                        if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult();
-                                            if (document.exists()){
-                                                ComponentDataBase.getInstance().setIdUser(document.getData().get("Telefono").toString());
-                                            }else{
+                                            if (document.exists()) {
+                                                memoryData = MemoryData.getInstance(_activity);
+                                                memoryData.saveData("user", document.getData().get("Telefono").toString());
+                                                memoryData.saveData("email", emailData);
+                                                memoryData.saveData("contactos", document.getData().get("Contactos").toString());
+                                                memoryData.saveData("nombre", document.getData().get("Nombre").toString() + " " +
+                                                        document.getData().get("Apellidos").toString());
+                                                _activity.startActivity(new Intent(_activity, MainActivity.class)
+                                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+                                                                .FLAG_ACTIVITY_NEW_TASK));
+                                            } else {
                                                 Log.e(getClass().getName(), "No such document");
                                             }
-                                        }else{
-                                            Log.e(getClass().getName(), "get failed: "+ task.getException());
+                                        } else {
+                                            Log.e(getClass().getName(), "get failed: " + task.getException());
                                         }
                                     }
                                 });
-                                memoryData = MemoryData.getInstance(_activity);
-                                _activity.startActivity(new Intent(_activity, MainActivity.class)
-                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
-                                                .FLAG_ACTIVITY_NEW_TASK));
-                            }else{
+                            } else {
                                 Snackbar.make(_bindingPassword.passwordEditText,
                                         R.string.invalid_credentials, Snackbar.LENGTH_LONG).show();
                             }
-
                         });
-            }else{
+            } else {
                 Snackbar.make(_bindingPassword.passwordEditText,
                         R.string.networks, Snackbar.LENGTH_LONG).show();
             }
         }
     }
-    private boolean isPasswordValid(String password){
+
+    private boolean isPasswordValid(String password) {
         return password.length() >= 6;
     }
 }

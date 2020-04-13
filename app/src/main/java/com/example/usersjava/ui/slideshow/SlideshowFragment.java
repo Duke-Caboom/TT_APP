@@ -68,14 +68,14 @@ public class SlideshowFragment extends Fragment {
                     if (mensajesArray == null) {
                         Log.i(getClass().getSimpleName(), "Regreso un null el adaptadpr PRIVADO");
                         return;
-                    }else{
+                    } else {
                         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
                                 mensajesArray);
                         listPrivado.setAdapter(adapter);
                     }
                     mHandler.postDelayed(this, 10000);
                 } catch (Throwable throwable) {
-                    Log.e(getClass().getSimpleName(), "Error: "+throwable);
+                    Log.e(getClass().getSimpleName(), "Error: " + throwable);
                 }
             }
         };
