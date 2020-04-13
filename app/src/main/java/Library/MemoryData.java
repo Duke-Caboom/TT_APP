@@ -9,24 +9,26 @@ public class MemoryData extends AppCompatActivity {
     private static MemoryData memoryData;
     private SharedPreferences sharedPreferences;
 
-    public MemoryData(Context context){
-        sharedPreferences = context.getSharedPreferences("pdhn",Context.MODE_PRIVATE);
+    public MemoryData(Context context) {
+        sharedPreferences = context.getSharedPreferences("pdhn", Context.MODE_PRIVATE);
     }
 
-    public  static MemoryData getInstance(Context context){
-        if(memoryData == null){
+    public static MemoryData getInstance(Context context) {
+        if (memoryData == null) {
             memoryData = new MemoryData(context);
         }
         return memoryData;
     }
-    public void saveData (String key, String value){
+
+    public void saveData(String key, String value) {
         SharedPreferences.Editor predesEditor = sharedPreferences.edit();
-        predesEditor.putString(key,value);
+        predesEditor.putString(key, value);
         predesEditor.commit();
     }
-    public String getData(String key){
-        if(sharedPreferences != null){
-            return sharedPreferences.getString(key,"");
+
+    public String getData(String key) {
+        if (sharedPreferences != null) {
+            return sharedPreferences.getString(key, "");
         }
         return "";
     }

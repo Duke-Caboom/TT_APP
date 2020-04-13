@@ -15,7 +15,7 @@ public class Reloj implements Runnable {
         isAlive = false;
     }
 
-    public Long getContador(){
+    public Long getContador() {
         return contador;
     }
 
@@ -23,13 +23,13 @@ public class Reloj implements Runnable {
     @Override
     public void run() {
 
-        while (true){
+        while (true) {
             try {
 
                 Thread.sleep(60000);
-                contador ++;
+                contador++;
 
-                if (contador == 10800){
+                if (contador == 10800) {
                     contador = 0L;
                 }
 
@@ -41,7 +41,7 @@ public class Reloj implements Runnable {
     }
 
     public void start() {
-        if (!isAlive){
+        if (!isAlive) {
             Thread t = new Thread(this);
             t.start();
         }

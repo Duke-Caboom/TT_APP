@@ -17,13 +17,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 
 import com.example.usersjava.ComponentDataBase;
 import com.example.usersjava.Dispositivos;
@@ -107,31 +106,31 @@ public class HomeFragment extends Fragment {
         textMSG1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG1.getText().toString().replace("■ ","") + " ");
+                inputMensaje.append(textMSG1.getText().toString().replace("■ ", "") + " ");
             }
         });
         textMSG2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG2.getText().toString().replace("■ ","") + " ");
+                inputMensaje.append(textMSG2.getText().toString().replace("■ ", "") + " ");
             }
         });
         textMSG4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG4.getText().toString().replace("■ ","") + " ");
+                inputMensaje.append(textMSG4.getText().toString().replace("■ ", "") + " ");
             }
         });
         textMSG5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG5.getText().toString().replace("■ ","") + " ");
+                inputMensaje.append(textMSG5.getText().toString().replace("■ ", "") + " ");
             }
         });
         textMSG6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputMensaje.append(textMSG6.getText().toString().replace("■ ","") + " ");
+                inputMensaje.append(textMSG6.getText().toString().replace("■ ", "") + " ");
             }
         });
     }
@@ -142,8 +141,8 @@ public class HomeFragment extends Fragment {
 
     private void enviarMensaje() {
         String text = inputMensaje.getText().toString();
-        text = text.replace("\n","|!");
-        Log.v(TAG, "##### Texto: "+text);
+        text = text.replace("\n", "|!");
+        Log.v(TAG, "##### Texto: " + text);
         //Si el mensaje es nulo o esta vacio no se manda
         if (text == null || text.length() == 0)
             return;
@@ -175,7 +174,7 @@ public class HomeFragment extends Fragment {
         Message message;
         StringBuilder trama = new StringBuilder();
 
-        if (ComponentDataBase.getInstance().getContactos().equalsIgnoreCase("")){
+        if (ComponentDataBase.getInstance().getContactos().equalsIgnoreCase("")) {
             Log.e(TAG, "##### ----------------> No tiene contactos agregados");
             Toast.makeText(getActivity(), "No tienes contactos de confianza agregados", Toast.LENGTH_LONG).show();
             return false;
@@ -263,7 +262,7 @@ public class HomeFragment extends Fragment {
 
         //Mensaje
         trama.append(text);
-        trama.append("|!Localizacion Apox: "+String.valueOf(latitud)+","+String.valueOf(longitud));
+        trama.append("|!Localizacion Apox: " + String.valueOf(latitud) + "," + String.valueOf(longitud));
         Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
 
         //Convierte trama a Bytes

@@ -51,9 +51,9 @@ public class Multimedia {
                 cropIntent.putExtra("outputY", 250);
                 break;
             case 1:
-                cropIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                cropIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 cropIntent.setType("image/*");
-                cropIntent.putExtra(MediaStore.EXTRA_OUTPUT,getTempoFile());
+                cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempoFile());
                 cropIntent.putExtra("outputX", 400);
                 cropIntent.putExtra("outputY", 250);
         }
@@ -76,22 +76,23 @@ public class Multimedia {
         }
     }
 
-    public Uri getTempoFile(){
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            File file =new File(Environment.getExternalStorageDirectory(),TEMP_PHOYO_FILE);
-            try{
+    public Uri getTempoFile() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File file = new File(Environment.getExternalStorageDirectory(), TEMP_PHOYO_FILE);
+            try {
                 file.createNewFile();
-            }catch (IOException e){}
+            } catch (IOException e) {
+            }
             return Uri.fromFile(file);
-        }else{
+        } else {
             return null;
         }
     }
 
-    public byte[] ImgaeByte (ImageView imageView){
+    public byte[] ImgaeByte(ImageView imageView) {
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
 }

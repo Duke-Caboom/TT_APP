@@ -5,17 +5,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ComponentDataBase {
     private static final ComponentDataBase instance = new ComponentDataBase();
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    //private ArrayList<String> contactos;
 
     public static ComponentDataBase getInstance() {
         return instance;
@@ -42,9 +40,32 @@ public class ComponentDataBase {
         editor.apply();
     }
 
+    public String getEmail() {
+        return sharedPreferences.getString("email", "");
+    }
+
+    public void setEmail(String email) {
+        editor.putString("email", email);
+        editor.apply();
+    }
+
+    public String getNombre() {
+        return sharedPreferences.getString("nombre", "");
+    }
+
+    public void setNombre(String nombre) {
+        editor.putString("nombre", nombre);
+        editor.apply();
+    }
+
     public void setLastIdMensaje(Integer idMensaje) {
         editor.putInt("lastMensaje", idMensaje);
         editor.apply();
+    }
+
+    public void updateContactos() {
+        FirebaseFirestore.getInstance().collection("Users").
+                document(getEmail()).update("Contactos", sharedPreferences.getString("contactos", ""));
     }
 
     public String getContactos() {
@@ -54,7 +75,7 @@ public class ComponentDataBase {
             return data;
         }
         String[] contactos = data.split(",");
-        data ="";
+        data = "";
         for (String contacto : contactos) {
             contac = contacto.split(":");
             data = data + contac[1] + ",";
@@ -62,6 +83,11 @@ public class ComponentDataBase {
         data = data + ",,";
         data = data.replace(",,,", "");
         return data;
+    }
+
+    public void setContactos(String contactos) {
+        editor.putString("contactos", contactos);
+        editor.apply();
     }
 
     public String[] getAdaptadorContactos() {
@@ -76,53 +102,31 @@ public class ComponentDataBase {
         int i = 0;
         for (String contacto : contactos) {
             contac = contacto.split(":");
-            adapatdor[i] = contac[0] +":"+ contac[1];
+            adapatdor[i] = contac[0] + ":" + contac[1];
             i++;
         }
         return adapatdor;
     }
 
-
-    public void addContacto(String parenteco, String numero) {
-        String data = sharedPreferences.getString("contactos", "");
-        String[] contac;
-        if(data != ""){
-            String[] contactos = data.split(",");
-            for (String contacto : contactos) {
-                String[] split = contacto.split(":");
-                if (split[1].equalsIgnoreCase(numero)) {
-                    Log.e(getClass().getName(), "El contacto ya existe");
-                    return;
-                }
-            }
-        }
-
-        if (data != "") {
-            editor.putString("contactos", data + "," + parenteco + ":" + numero);
-        } else {
-            editor.putString("contactos", parenteco + ":" + numero);
-        }
-        editor.apply();
-    }
-
     public void delContacto(String delCont) {
         String data = sharedPreferences.getString("contactos", "");
 
-        data = data.replace(delCont,"");
+        data = data.replace(delCont, "");
 
-        if(data != ""){
-            data = data.replace(",,","");
+        if (data != "") {
+            data = data.replace(",,", "");
 
-            if (data.charAt(0) == ','){
-                data = data.replaceFirst(",","");
+            if (data.charAt(0) == ',') {
+                data = data.replaceFirst(",", "");
             }
 
-            if (data.charAt(data.length()-1) == ','){
-                data = data.substring(0, data.length()-1);
+            if (data.charAt(data.length() - 1) == ',') {
+                data = data.substring(0, data.length() - 1);
             }
         }
         editor.putString("contactos", data);
         editor.apply();
+        updateContactos();
     }
 
     public Integer getLastIdMensaje() {
@@ -150,7 +154,7 @@ public class ComponentDataBase {
     }
 
     public HashMap<Integer, TipoMensaje> getLatestMessages() {
-        //try {
+
         HashMap<Integer, TipoMensaje> msg = new HashMap<>();
         int i = 0;
         DataBase dataBase = new DataBase(MainActivity.getDefaultInstance(), "base", null, 1);
@@ -171,10 +175,6 @@ public class ComponentDataBase {
             return null;
         }
         return msg;
-        /*} catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "----------------> ERROR EN BD: "+e);
-            return null;
-        }*/
     }
 
 

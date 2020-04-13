@@ -19,49 +19,49 @@ public class Dispositivos {
         this.dispositivos = new HashMap<>();
     }
 
-    public static Dispositivos getInstance(){
+    public static Dispositivos getInstance() {
         return instance;
     }
 
-    public void addDispositivo(Instance instance){
-        Log.i(TAG, "getUserIdentifier:  "+ instance.getUserIdentifier());
-        Log.i(TAG, "dispositivos: "+ dispositivos.toString());
-        dispositivos.put(instance.getUserIdentifier(),instance);
+    public void addDispositivo(Instance instance) {
+        Log.i(TAG, "getUserIdentifier:  " + instance.getUserIdentifier());
+        Log.i(TAG, "dispositivos: " + dispositivos.toString());
+        dispositivos.put(instance.getUserIdentifier(), instance);
     }
 
-    public void deleteDispositivo(Instance instance){
+    public void deleteDispositivo(Instance instance) {
         dispositivos.remove(instance.getUserIdentifier());
     }
 
-    public int sizeDispositivos(){
+    public int sizeDispositivos() {
         return dispositivos.size();
     }
 
-    public String[] getAdapterDispositivos(){
+    public String[] getAdapterDispositivos() {
 
         String[] adapterArray = new String[dispositivos.size()];
-        Log.i(TAG, "dispositivos.size(): "+ dispositivos.size());
+        Log.i(TAG, "dispositivos.size(): " + dispositivos.size());
 
-        if (dispositivos.size() == 0){
+        if (dispositivos.size() == 0) {
             return null;
         }
 
 
-        int i= 0;
+        int i = 0;
         for (HashMap.Entry<Long, Instance> entry : dispositivos.entrySet()) {
             Log.i(TAG, "FOR: ");
-           adapterArray[i] = entry.getValue().getStringIdentifier();
+            adapterArray[i] = entry.getValue().getStringIdentifier();
             Log.i(TAG, "DEspues FOR: ");
-           i++;
+            i++;
         }
 
         return adapterArray;
     }
 
-    public Instance[] getDispositivos(){
-        Instance[] disp= new Instance[dispositivos.size()];
+    public Instance[] getDispositivos() {
+        Instance[] disp = new Instance[dispositivos.size()];
 
-        int i= 0;
+        int i = 0;
         for (HashMap.Entry<Long, Instance> entry : dispositivos.entrySet()) {
             Log.i(TAG, "FOR: ");
             disp[i] = entry.getValue();
@@ -71,10 +71,10 @@ public class Dispositivos {
         return disp;
     }
 
-    public Instance getDispositivo(int id){
-        if (dispositivos.containsKey(id)){
+    public Instance getDispositivo(int id) {
+        if (dispositivos.containsKey(id)) {
             return dispositivos.get(id);
-        }else{
+        } else {
             return null;
         }
 

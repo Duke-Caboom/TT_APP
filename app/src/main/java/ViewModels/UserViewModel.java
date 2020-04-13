@@ -1,9 +1,7 @@
 package ViewModels;
 
-import android.accounts.NetworkErrorException;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -11,16 +9,12 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import androidx.databinding.Bindable;
 import androidx.lifecycle.ViewModel;
 
-import com.example.usersjava.AddUser;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.R;
-import com.example.usersjava.VerifyPassword;
 import com.example.usersjava.databinding.AddUserBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +22,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +37,6 @@ import Models.Collections;
 import Models.Item;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.BIND_ABOVE_CLIENT;
 
 public class UserViewModel extends ViewModel implements IonClick {
     public static String emailData = null;
@@ -84,7 +75,7 @@ public class UserViewModel extends ViewModel implements IonClick {
         _binding.progressBar.setVisibility(ProgressBar.INVISIBLE);
         _binding.nameEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         _binding.lastnameEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        if (emailData != null){
+        if (emailData != null) {
             emailUI.setValue(emailData);
         }
     }
@@ -201,6 +192,8 @@ public class UserViewModel extends ViewModel implements IonClick {
                                 if (task1.isSuccessful()) {
                                     memoryData = MemoryData.getInstance(_activity);
                                     memoryData.saveData("user", telUI.getValue());
+                                    memoryData.saveData("email", emailData);
+                                    memoryData.saveData("nombre", nameUI.getValue() + " " + lastnameUI.getValue());
                                     _activity.startActivity(new Intent(_activity, MainActivity.class)
                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
                                                     .FLAG_ACTIVITY_NEW_TASK));

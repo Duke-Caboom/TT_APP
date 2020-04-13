@@ -56,8 +56,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     public void onApplicationStart(Application app) {
     }
 
-    public void configChatApp(){
-        if (!isConfigured){
+    public void configChatApp() {
+        if (!isConfigured) {
             Reloj.getInstance().start();
             Mensajes.getInstance().startApp();
             configureHype();
@@ -212,14 +212,14 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         StringBuilder trama = new StringBuilder();
         String tabla;
 
-        if ((tabla = Mensajes.getInstance().getTabla())!= null){
+        if ((tabla = Mensajes.getInstance().getTabla()) != null) {
             // Agregamos encabezado
             trama.append("! TABLA");
             trama.append("#_");
             //Obtenemos tabla y agremaos
             trama.append(tabla);
 
-            Log.v(getClass().getSimpleName(), "----------------> TABLA A COMPARTIR: "+trama.toString());
+            Log.v(getClass().getSimpleName(), "----------------> TABLA A COMPARTIR: " + trama.toString());
 
             try {
                 byte[] data = trama.toString().getBytes("UTF-8");
@@ -264,7 +264,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         } else if (cadena.contains("! MESAJE")) {
             Log.v(getClass().getSimpleName(), "----------------> Mensaje recibido");
             Mensajes.getInstance().addMensajes(cadena);
-        }else{
+        } else {
             Log.v(getClass().getSimpleName(), "----------------> No se que reciio");
         }
     }

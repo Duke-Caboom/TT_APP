@@ -4,21 +4,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.navigation.NavigationView;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.lang.ref.WeakReference;
 
 import Library.MemoryData;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -33,13 +34,25 @@ public class MainActivity extends AppCompatActivity{
         setContactActivity(this);
 
         MemoryData memoryData = MemoryData.getInstance(this);
-        Log.e(getClass().getSimpleName(), "----------------> "+ComponentDataBase.getInstance().getIdUser());
-        Log.e(getClass().getSimpleName(), "----------------> "+memoryData.getData("user").trim());
-        if(ComponentDataBase.getInstance().getIdUser().equalsIgnoreCase("")
-                && !memoryData.getData("user").trim().equalsIgnoreCase("")){
+        if (ComponentDataBase.getInstance().getNombre().equalsIgnoreCase("")) {
+            ComponentDataBase.getInstance().setNombre(memoryData.getData("nombre").trim());
+        }
+
+        if (ComponentDataBase.getInstance().getEmail().equalsIgnoreCase("")) {
+            ComponentDataBase.getInstance().setEmail(memoryData.getData("email").trim());
+        }
+
+        if (ComponentDataBase.getInstance().getContactos().equalsIgnoreCase("")) {
+            ComponentDataBase.getInstance().setContactos(memoryData.getData("contactos").trim());
+        }
+
+        if (ComponentDataBase.getInstance().getIdUser().equalsIgnoreCase("")
+                && !memoryData.getData("user").trim().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
             //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
         }
+
+        Log.e(getClass().getSimpleName(), "Email: " + ComponentDataBase.getInstance().getEmail());
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -58,8 +71,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-
-        final ChatApplication chatApplication = (ChatApplication)getApplication();
+        final ChatApplication chatApplication = (ChatApplication) getApplication();
         chatApplication.setActivity(this);
         chatApplication.configChatApp();
     }

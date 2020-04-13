@@ -20,9 +20,9 @@ public class TipoMensaje {
         this.contador = contador;
         this.idUser = idUser;
         this.idMensaje = idMensaje;
-        this.publico = publico ==1 ? true : false;
-        if (publico == 0){
-            this.destinatarios =  destinatarios.split(",");
+        this.publico = publico == 1 ? true : false;
+        if (publico == 0) {
+            this.destinatarios = destinatarios.split(",");
         }
         this.mensajes = mensajes;
         this.hora = hora;
@@ -37,36 +37,36 @@ public class TipoMensaje {
         return idMensaje;
     }
 
-    public TipoMensaje (String dataMensaje){
+    public TipoMensaje(String dataMensaje) {
         this.contador = Reloj.getInstance().getContador();
 
         try {
-            dataMensaje = dataMensaje.replace("! MESAJE!_","");
+            dataMensaje = dataMensaje.replace("! MESAJE!_", "");
 
             String[] parts = dataMensaje.split("!_");
 
-            for (int i = 0 ; i < parts.length; i++){
-                Log.v(getClass().getSimpleName(), "----------------> Parte "+i + ": "+ parts[i]);
+            for (int i = 0; i < parts.length; i++) {
+                Log.v(getClass().getSimpleName(), "----------------> Parte " + i + ": " + parts[i]);
             }
 
-            if (parts.length == 5){
+            if (parts.length == 5) {
                 Log.i(getClass().getSimpleName(), "Se trata de un mensaje privado morrito");
                 this.idUser = parts[0];
-                this.idMensaje= parts[1];
-                this.publico= parts[2].equalsIgnoreCase("1") ? true : false;
-                this.destinatarios =  parts[3].split(",");
+                this.idMensaje = parts[1];
+                this.publico = parts[2].equalsIgnoreCase("1") ? true : false;
+                this.destinatarios = parts[3].split(",");
                 this.mensajes = parts[4];
-            }else if (parts.length ==4){
+            } else if (parts.length == 4) {
                 Log.i(getClass().getSimpleName(), "Se trata de un mensaje Publico morrito");
                 this.idUser = parts[0];
-                this.idMensaje= parts[1];
-                this.publico= parts[2].equalsIgnoreCase("1") ? true : false;
+                this.idMensaje = parts[1];
+                this.publico = parts[2].equalsIgnoreCase("1") ? true : false;
                 this.mensajes = parts[3];
-            }else{
+            } else {
                 Log.i(getClass().getSimpleName(), "No se que mando este men: " + parts.length);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.i(getClass().getSimpleName(), "Error al tratar de parsear el mensaje");
         }
         Date date = new Date();
@@ -85,7 +85,7 @@ public class TipoMensaje {
         return fecha;
     }
 
-    public String getKeyValue(){
+    public String getKeyValue() {
         StringBuilder data = new StringBuilder();
 
         data.append(this.idUser);
@@ -94,12 +94,12 @@ public class TipoMensaje {
         data.append("!_");
         data.append(this.publico == true ? "1" : "0");
 
-        if (!this.publico){
+        if (!this.publico) {
             data.append("!_");
-            if (!this.isPublico()){
-                for (int i=0; i < this.destinatarios.length; i++){
+            if (!this.isPublico()) {
+                for (int i = 0; i < this.destinatarios.length; i++) {
                     data.append(this.destinatarios[i]);
-                    if (i+1 != this.destinatarios.length) {
+                    if (i + 1 != this.destinatarios.length) {
                         data.append(",");
                     }
                 }
@@ -111,7 +111,7 @@ public class TipoMensaje {
         return data.toString();
     }
 
-    public Long getContador(){
+    public Long getContador() {
         return this.contador;
     }
 
@@ -130,11 +130,11 @@ public class TipoMensaje {
     public String getDestinatarios() {
         String string = "";
 
-        for (String destinatario : destinatarios){
+        for (String destinatario : destinatarios) {
             string = string + destinatario + ",";
         }
         string = string + ",,";
-        string.replace(",,,","");
+        string.replace(",,,", "");
 
         Log.e(getClass().getSimpleName(), "----------------> destinatario:" + string);
         return string;

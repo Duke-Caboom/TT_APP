@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/text_share"
@@ -34,11 +32,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="45dp">
+
                     <ImageView
                         android:id="@+id/imageView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@mipmap/ic_logos"/>
+                        app:srcCompat="@mipmap/ic_logos" />
 
                     <TextView
                         android:id="@+id/Text1"
@@ -56,14 +55,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tel_text_input"
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        android:hint="@string/NumberTell"
-                        android:inputType="phone"
+                        android:hint="Correo *"
+                        android:inputType="textEmailAddress"
                         android:textColorHint="@color/colorBlack"
                         app:errorEnabled="true"
                         app:hintTextColor="@color/colorBlack">
@@ -73,9 +71,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorBlack"
-                            android:inputType="phone"
-                            android:textColorHint="@color/colorBlack">
-                        </com.google.android.material.textfield.TextInputEditText>
+                            android:inputType="textEmailAddress"
+                            android:textColorHint="@color/colorBlack"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -96,9 +93,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="text"
                             android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"
-                            >
-                        </com.google.android.material.textfield.TextInputEditText>
+                            android:textColorHint="@color/colorBlack"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -147,9 +142,11 @@
             android:layout_height="70dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

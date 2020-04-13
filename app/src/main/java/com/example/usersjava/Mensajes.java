@@ -29,12 +29,12 @@ public class Mensajes {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
         if (!tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
-                && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())){
-            Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: "+ index);
+                && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())) {
+            Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: " + index);
             return;
         }
         this.mensajes.put(index, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: "+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: " + index);
         index = index + 1;
     }
 
@@ -42,32 +42,32 @@ public class Mensajes {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
         this.mensajesEnviado.put(indexEnviado, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Mensaje enviado agregado al registro"+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Mensaje enviado agregado al registro" + index);
         indexEnviado = indexEnviado + 1;
 
         this.mensajes.put(index, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: "+ index);
+        Log.e(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: " + index);
         index = index + 1;
 
         ComponentDataBase.getInstance().addMensaje(tipoMensaje);
     }
 
-    public String getTabla(){
+    public String getTabla() {
         StringBuilder data = new StringBuilder();
         data.append("");
 
         int sizeMensajes = mensajes.size();
 
-        if (mensajes.size()!=0){
+        if (mensajes.size() != 0) {
 
-            for (int i = sizeMensajes; i != 0; i--){
-                Log.e(getClass().getSimpleName(), "----------------> Contador(): "+ mensajes.get(i-1).getContador()+10
-                        +" Reloj: " +  (Reloj.getInstance().getContador()));
-                if (mensajes.get(i-1).getContador()+10 >= Reloj.getInstance().getContador()){
+            for (int i = sizeMensajes; i != 0; i--) {
+                Log.e(getClass().getSimpleName(), "----------------> Contador(): " + mensajes.get(i - 1).getContador() + 10
+                        + " Reloj: " + (Reloj.getInstance().getContador()));
+                if (mensajes.get(i - 1).getContador() + 10 >= Reloj.getInstance().getContador()) {
                     Log.e(getClass().getSimpleName(), "----------------> Agregando mensaje a la tabla");
-                    data.append(mensajes.get(i-1).getKeyValue());
+                    data.append(mensajes.get(i - 1).getKeyValue());
                     Log.e(getClass().getSimpleName(), "----------------> Se agrego mensaje a la tabla");
-                }else{
+                } else {
                     Log.e(getClass().getSimpleName(), "----------------> Regresando mensaje");
                     return data.toString();
                 }
@@ -75,45 +75,45 @@ public class Mensajes {
             }
         }
 
-        if (data != null && data.toString() != ""){
+        if (data != null && data.toString() != "") {
             data.append("#");
-            Log.e(getClass().getSimpleName(), "----------------> Regresando Tabla:" + data.toString().replace("#_#",""));
-            return data.toString().replace("#_#","");
+            Log.e(getClass().getSimpleName(), "----------------> Regresando Tabla:" + data.toString().replace("#_#", ""));
+            return data.toString().replace("#_#", "");
         }
 
         Log.e(getClass().getSimpleName(), "----------------> Tabla vacia");
         return null;
     }
 
-    public boolean tablaRecibida(String tabla){
+    public boolean tablaRecibida(String tabla) {
 
         String[] mensajesTabla = tabla.split("#_");
 
-        if (mensajesTabla.length != 0){
-            for (int i= 1; i < mensajesTabla.length; i++){
+        if (mensajesTabla.length != 0) {
+            for (int i = 1; i < mensajesTabla.length; i++) {
                 addMensajes(mensajesTabla[i]);
             }
-        }else{
+        } else {
             Log.e(getClass().getSimpleName(), "Mamo, quien sabe que mandaron estos mens: " + tabla);
         }
 
         return true;
     }
 
-    public boolean existsMessage(String idUser, String idMensaje){
+    public boolean existsMessage(String idUser, String idMensaje) {
 
-        if (this.mensajes.size()!= 0){
+        if (this.mensajes.size() != 0) {
 
-            Log.e(getClass().getSimpleName(),"Revisando si existe ya el mensaje en la HASMAP");
+            Log.e(getClass().getSimpleName(), "Revisando si existe ya el mensaje en la HASMAP");
             for (TipoMensaje temp : this.mensajes.values()) {
 
-                Log.e(getClass().getSimpleName(),"User=" + temp.getIdUser()+
-                        ", IdMensa: "+ temp.getIdMensaje());
+                Log.e(getClass().getSimpleName(), "User=" + temp.getIdUser() +
+                        ", IdMensa: " + temp.getIdMensaje());
 
-                if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)){
-                    Log.e(getClass().getSimpleName(),"Mismo ID");
+                if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)) {
+                    Log.e(getClass().getSimpleName(), "Mismo ID");
                     if (temp.getIdUser().equalsIgnoreCase(idUser)) {
-                        Log.e(getClass().getSimpleName(),"Mismo Usuario");
+                        Log.e(getClass().getSimpleName(), "Mismo Usuario");
                         return true;
                     }
                 }
@@ -123,76 +123,76 @@ public class Mensajes {
     }
 
 
-    public String[] getAdapterMensajes(){
+    public String[] getAdapterMensajes() {
         String mensajeA = "";
-        HashMap<Integer, String> data= new HashMap();
-        int j=0;
+        HashMap<Integer, String> data = new HashMap();
+        int j = 0;
         int sizeMensajes = mensajes.size();
 
-        if (mensajes.size()!=0) {
-            int id_mensaje= 0;
+        if (mensajes.size() != 0) {
+            int id_mensaje = 0;
             for (int i = sizeMensajes; i != 0; i--) {
-                id_mensaje = i -1;
+                id_mensaje = i - 1;
                 if (this.mensajes.get(id_mensaje).isPublico() &&
-                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())){
-                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
-                            "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
-                            this.mensajes.get(id_mensaje).getMensajes().replace("|!","\n");
+                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
+                    mensajeA = "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
+                            "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +
+                            this.mensajes.get(id_mensaje).getMensajes().replace("|!", "\n");
                     data.put(j, mensajeA);
                     j++;
                 }
             }
-            String[] dataS= new String[data.size()];
-            for (int i=0; i < data.size();i++){
+            String[] dataS = new String[data.size()];
+            for (int i = 0; i < data.size(); i++) {
                 dataS[i] = data.get(i);
             }
             return dataS;
-        }else{
+        } else {
             Log.e(getClass().getSimpleName(), "----------------> No hay menajes publicos para mostrar");
             return null;
         }
     }
 
-    public String[] getAdapterMensajesPrivado(){
+    public String[] getAdapterMensajesPrivado() {
         String mensajeA = "";
-        HashMap<Integer, String> data= new HashMap();
-        int j=0;
+        HashMap<Integer, String> data = new HashMap();
+        int j = 0;
         int sizeMensajes = mensajes.size();
 
-        if (mensajes.size()!=0) {
-            int id_mensaje= 0;
+        if (mensajes.size() != 0) {
+            int id_mensaje = 0;
             for (int i = sizeMensajes; i != 0; i--) {
-                id_mensaje = i -1;
+                id_mensaje = i - 1;
 
                 if (this.mensajes.get(id_mensaje).isPublico() == false &&
-                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())){
-                    mensajeA="De: " + this.mensajes.get(id_mensaje).getIdUser()+ "\n"+
-                            "Fecha: "+this.mensajes.get(id_mensaje).getFecha()+ " Hora: " + this.mensajes.get(id_mensaje).getHora()+"\n"+
+                        !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
+                    mensajeA = "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
+                            "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +
                             this.mensajes.get(id_mensaje).getMensajes();
                     data.put(j, mensajeA);
                     j++;
                 }
             }
-            String[] dataS= new String[data.size()];
+            String[] dataS = new String[data.size()];
 
-            for (int i=0; i < data.size();i++){
+            for (int i = 0; i < data.size(); i++) {
                 dataS[i] = data.get(i);
             }
             return dataS;
-        }else{
+        } else {
             Log.e(getClass().getSimpleName(), "----------------> No hay menajes Privados para mostrar");
             return null;
         }
     }
 
-    public void startApp(){
+    public void startApp() {
         Log.e(getClass().getSimpleName(), "----------------> Cargando tabla desde BD");
         HashMap<Integer, TipoMensaje> temp = ComponentDataBase.getInstance().getLatestMessages();
-        if(temp != null){
+        if (temp != null) {
             this.mensajes = temp;
             index = this.mensajes.size();
             Log.e(getClass().getSimpleName(), "----------------> Tabla Cargada");
-        }else{
+        } else {
             Log.e(getClass().getSimpleName(), "----------------> Sin Mensajes");
         }
     }

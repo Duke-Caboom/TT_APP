@@ -10,25 +10,26 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Networks extends AppCompatActivity {
 
     private Activity _activity;
-    public Networks(Activity activity){
+
+    public Networks(Activity activity) {
         _activity = activity;
     }
-    public boolean verificaNetworks(){
+
+    public boolean verificaNetworks() {
         boolean valor = false;
         ConnectivityManager cm = (ConnectivityManager) _activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm != null){
+        if (cm != null) {
             NetworkCapabilities nc = cm.getNetworkCapabilities(cm.getActiveNetwork());
-            if (nc != null){
-                if(nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)){
-                    valor =true;
+            if (nc != null) {
+                if (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    valor = true;
+                } else if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    valor = true;
                 }
-                else if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)){
-                    valor =true;
-                }
-            }else{
+            } else {
                 valor = false;
             }
-        }else{
+        } else {
             valor = false;
         }
         return valor;

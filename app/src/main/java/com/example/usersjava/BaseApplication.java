@@ -39,11 +39,12 @@ import java.lang.ref.WeakReference;
 // although already existent, is not yet officially supported by the framework.
 // This code was written here to prevent distracting from the ChatApplication's
 // main purpose, which is to demonstrate how to use the Hype framework.
-public class  BaseApplication extends Application {
+public class BaseApplication extends Application {
 
     public interface LifecycleDelegate {
 
         void onApplicationStart(Application app);
+
         void onApplicationStop(Application app);
     }
 

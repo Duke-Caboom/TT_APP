@@ -3,14 +3,12 @@ package ViewModels;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModel;
 
 import com.example.usersjava.AddUser;
 import com.example.usersjava.R;
 import com.example.usersjava.VerifyEmail;
-import com.example.usersjava.VerifyPassword;
 
 import Interfaces.IonClick;
 
@@ -23,7 +21,7 @@ public class PrincipalViewModel extends ViewModel implements IonClick {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.registro:
                 registro();
                 break;
@@ -34,10 +32,11 @@ public class PrincipalViewModel extends ViewModel implements IonClick {
         //Toast.makeText(_activity,emailUI.getValue(), Toast.LENGTH_SHORT).show();
     }
 
-    private void registro(){
+    private void registro() {
         _activity.startActivity(new Intent(_activity, AddUser.class));
     }
-    private void iniciarsesion(){
+
+    private void iniciarsesion() {
         _activity.startActivity(new Intent(_activity, VerifyEmail.class));
     }
 }
