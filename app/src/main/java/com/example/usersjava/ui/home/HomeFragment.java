@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
         initElements(root);
         //Definimos los eventos para cada elemento que se ocupe
         setButtonListeners();
-
         return root;
     }
 
@@ -276,6 +275,12 @@ public class HomeFragment extends Fragment {
         }
 
         Instance[] d = Dispositivos.getInstance().getDispositivos();
+
+        for (Instance ins : d){
+            Log.v(TAG, "#####  Dispositivos: " + ins.getIdentifier());
+        }
+
+
 
         for (int i = 0; i < d.length; i++) {
             message = Hype.send(data, d[i], false);

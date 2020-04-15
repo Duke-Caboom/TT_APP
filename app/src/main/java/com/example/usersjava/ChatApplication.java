@@ -80,9 +80,9 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-        Hype.setTransportType(31);
-        //Hype.setUserIdentifier(ComponentDataBase.getInstance().getIdUser());
-        Hype.setAppIdentifier("c28a6ca4");
+        //Hype.setTransportType(31);
+        Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(0,5)));
+        Hype.setAppIdentifier("89a32a5d");
 
         try {
             Hype.setAnnouncement(ChatApplication.announcement.getBytes("UTF-8"));
@@ -96,8 +96,9 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     }
 
     @Override
+
     public String onHypeRequestAccessToken(int i) {
-        return "44eae8c7d9eaa712";
+        return "3b7786aa9e90b32a";
     }
 
 
@@ -133,7 +134,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     public void onHypeFailedStarting(Error error) {
 
         Log.e(TAG, String.format("Hype failed starting [%s]", error.getDescription()));
-
+        configureHype();
+        /*
         // Obtain information of error
         final String failedMsg = error == null ? "" : String.format("Suggestion: %s\nDescription: %s\nReason: %s",
                 error.getSuggestion(), error.getDescription(), error.getReason());
@@ -148,7 +150,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
                 builder.setPositiveButton(android.R.string.ok, null);
                 builder.show();
             }
-        });
+        });*/
     }
 
     @Override
