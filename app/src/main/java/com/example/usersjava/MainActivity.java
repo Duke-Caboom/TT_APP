@@ -1,7 +1,6 @@
 package com.example.usersjava;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    private static final int REQUEST_ACCESS_COARSE_LOCATION_ID = 0;
     private static WeakReference<MainActivity> defaultInstance;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContactActivity(this);
 
         MemoryData memoryData = MemoryData.getInstance(this);
+
         if (ComponentDataBase.getInstance().getNombre().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setNombre(memoryData.getData("nombre").trim());
+
         }
 
         if (ComponentDataBase.getInstance().getEmail().equalsIgnoreCase("")) {
@@ -52,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
             //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
         }
 
-        Log.e(getClass().getSimpleName(), "Email: " + ComponentDataBase.getInstance().getEmail());
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -69,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
 
         final ChatApplication chatApplication = (ChatApplication) getApplication();
         chatApplication.setActivity(this);

@@ -28,9 +28,9 @@ public class Mensajes {
     public void addMensajes(String message) {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
-        if (!tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
-                && existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())) {
-            Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente: " + index);
+        if (tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
+                || existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())) {
+            Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente");
             return;
         }
         this.mensajes.put(index, tipoMensaje);
@@ -106,9 +106,8 @@ public class Mensajes {
 
             Log.e(getClass().getSimpleName(), "Revisando si existe ya el mensaje en la HASMAP");
             for (TipoMensaje temp : this.mensajes.values()) {
-
                 Log.e(getClass().getSimpleName(), "User=" + temp.getIdUser() +
-                        ", IdMensa: " + temp.getIdMensaje());
+                        ", IdMensa: " + temp.getIdMensaje() + "Mensaje: "+temp.getMensajes());
 
                 if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)) {
                     Log.e(getClass().getSimpleName(), "Mismo ID");
