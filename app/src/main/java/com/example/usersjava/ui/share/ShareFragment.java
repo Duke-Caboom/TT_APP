@@ -74,12 +74,12 @@ public class ShareFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Eliminar contacto");
             builder.setMessage("Deseas eliminar al contacto...");
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            /*builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
                 }
-            });
+            });*/
             builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
