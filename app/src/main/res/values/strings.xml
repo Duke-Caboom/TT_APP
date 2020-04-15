@@ -34,7 +34,7 @@
     <string name="menu_camera">Camara</string>
     <string name="gallery">Galeria</string>
     <string name="fail_register">Fallo al registrar al usuario</string>
-
+    <string name="action_change_in">Reestablecer</string>
 
     <string name="name">Nombre (s) *</string>
     <string name="Lastname">Apellidos *</string>

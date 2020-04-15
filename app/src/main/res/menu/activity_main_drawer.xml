@@ -12,21 +12,21 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_notification_important_24px"
             android:title="@string/menu_slideshow" />
+    <!--<item
+        android:id="@+id/nav_gallery"
+        android:icon="@drawable/ic_cloud_upload_24px"
+        android:title="@string/menu_gallery" />-->
+</group>
+<item android:title="Contactos de Confianza">
+    <menu>
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_person_add_24px"
+            android:title="@string/menu_share" />
+        <!--<item
+            android:id="@+id/nav_tools"
             android:icon="@drawable/ic_cloud_upload_24px"
-            android:title="@string/menu_gallery" />
-    </group>
-    <item android:title="Contactos de Confianza">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_person_add_24px"
-                android:title="@string/menu_share" />
-            <!--<item
-                android:id="@+id/nav_tools"
-                android:icon="@drawable/ic_cloud_upload_24px"
-                android:title="@string/menu_tools" />-->
+            android:title="@string/menu_tools" />-->
         </menu>
     </item>
     <item android:title="Aplicación">

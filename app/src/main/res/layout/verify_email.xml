@@ -84,6 +84,17 @@
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
                         android:onClick="@{emailModel::onClick}"></Button>
+                    <Button
+                        android:id="@+id/email_change_in_button"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/borde_redondo"
+                        android:text="@string/action_change_in"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:onClick="@{emailModel::onClick}"></Button>
 
                     <TextView
                         android:id="@+id/textView2"

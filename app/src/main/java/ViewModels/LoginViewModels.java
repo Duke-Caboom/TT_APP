@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -61,9 +62,31 @@ public class LoginViewModels extends ViewModel implements IonClick {
             case R.id.password_sign_in_button:
                 login();
                 break;
+            case R.id.email_change_in_button:
+                if (!emailUI.getValue().isEmpty()) {
+                    resetPassword();
+                } else {
+                    Toast.makeText(_activity, "Debe ingresar el email", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
         //Toast.makeText(_activity,emailUI.getValue(), Toast.LENGTH_SHORT).show();
     }
+
+    private void resetPassword() {
+        mAuth.setLanguageCode("es");
+        mAuth.sendPasswordResetEmail(emailUI.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(_activity, "Se ha enviado un correo para restablecer tu contraseña", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(_activity, "No se pudo enviar el correo de restablecer contraseña", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     private void VerifyEmail() {
         boolean cancel = true;
