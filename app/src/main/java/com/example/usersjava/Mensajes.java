@@ -156,10 +156,6 @@ public class Mensajes {
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i - 1;
 
-                Log.e(getClass().getSimpleName(), "---------------->Dest: "+ this.mensajes.get(id_mensaje).getDestinatarios());
-                Log.e(getClass().getSimpleName(), "---------------->Mio: "+ ComponentDataBase.getInstance().getIdUser());
-                Log.e(getClass().getSimpleName(), "---------------->Evalua: "+ this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()));
-
                 if (this.mensajes.get(id_mensaje).isPublico() == false &&
                         this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()) &&
                         !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
