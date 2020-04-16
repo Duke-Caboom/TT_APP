@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment {
         Log.v(TAG, "##### ----------------> 2 TRAMA: " + trama.toString());
 
         //Indicador publico
-        trama.append(radioPrivada.isChecked() ? "1" : "0");
+        trama.append("0");
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 3 TRAMA: " + trama.toString());
 
@@ -255,7 +255,7 @@ public class HomeFragment extends Fragment {
         Log.v(TAG, "##### ----------------> 2 TRAMA: " + trama.toString());
 
         //Indicador publico
-        trama.append(radioPublica.isChecked() ? "1" : "0");
+        trama.append("1");
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 3 TRAMA: " + trama.toString());
 

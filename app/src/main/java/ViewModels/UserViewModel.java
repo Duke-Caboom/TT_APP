@@ -192,7 +192,7 @@ public class UserViewModel extends ViewModel implements IonClick {
                                 if (task1.isSuccessful()) {
                                     memoryData = MemoryData.getInstance(_activity);
                                     memoryData.saveData("user", telUI.getValue());
-                                    memoryData.saveData("email", emailData);
+                                    memoryData.saveData("email", emailUI.getValue());
                                     memoryData.saveData("nombre", nameUI.getValue() + " " + lastnameUI.getValue());
                                     _activity.startActivity(new Intent(_activity, MainActivity.class)
                                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent

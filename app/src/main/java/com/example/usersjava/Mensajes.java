@@ -28,6 +28,9 @@ public class Mensajes {
     public void addMensajes(String message) {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
+        Log.e(getClass().getSimpleName(), "----------------> Evaluando mensaje para ver si existe");
+        Log.e(getClass().getSimpleName(), "----------------> 1) "+ tipoMensaje.getIdUser() + "/" + tipoMensaje.getIdMensaje());
+        Log.e(getClass().getSimpleName(), "----------------> 2) "+ ComponentDataBase.getInstance().getIdUser());
         if (tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
                 || existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())) {
             Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente");
@@ -42,11 +45,9 @@ public class Mensajes {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
         this.mensajesEnviado.put(indexEnviado, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Mensaje enviado agregado al registro" + index);
         indexEnviado = indexEnviado + 1;
 
         this.mensajes.put(index, tipoMensaje);
-        Log.e(getClass().getSimpleName(), "----------------> Mensaje agregado a la tabla: " + index);
         index = index + 1;
 
         ComponentDataBase.getInstance().addMensaje(tipoMensaje);
@@ -61,14 +62,9 @@ public class Mensajes {
         if (mensajes.size() != 0) {
 
             for (int i = sizeMensajes; i != 0; i--) {
-                Log.e(getClass().getSimpleName(), "----------------> Contador(): " + mensajes.get(i - 1).getContador() + 10
-                        + " Reloj: " + (Reloj.getInstance().getContador()));
                 if (mensajes.get(i - 1).getContador() + 10 >= Reloj.getInstance().getContador()) {
-                    Log.e(getClass().getSimpleName(), "----------------> Agregando mensaje a la tabla");
                     data.append(mensajes.get(i - 1).getKeyValue());
-                    Log.e(getClass().getSimpleName(), "----------------> Se agrego mensaje a la tabla");
                 } else {
-                    Log.e(getClass().getSimpleName(), "----------------> Regresando mensaje");
                     return data.toString();
                 }
                 data.append("#_");
@@ -106,9 +102,6 @@ public class Mensajes {
 
             Log.e(getClass().getSimpleName(), "Revisando si existe ya el mensaje en la HASMAP");
             for (TipoMensaje temp : this.mensajes.values()) {
-                Log.e(getClass().getSimpleName(), "User=" + temp.getIdUser() +
-                        ", IdMensa: " + temp.getIdMensaje() + "Mensaje: "+temp.getMensajes());
-
                 if (temp.getIdMensaje().equalsIgnoreCase(idMensaje)) {
                     Log.e(getClass().getSimpleName(), "Mismo ID");
                     if (temp.getIdUser().equalsIgnoreCase(idUser)) {
@@ -163,7 +156,12 @@ public class Mensajes {
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i - 1;
 
+                Log.e(getClass().getSimpleName(), "---------------->Dest: "+ this.mensajes.get(id_mensaje).getDestinatarios());
+                Log.e(getClass().getSimpleName(), "---------------->Mio: "+ ComponentDataBase.getInstance().getIdUser());
+                Log.e(getClass().getSimpleName(), "---------------->Evalua: "+ this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()));
+
                 if (this.mensajes.get(id_mensaje).isPublico() == false &&
+                        this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()) &&
                         !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
                     mensajeA = "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
                             "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +

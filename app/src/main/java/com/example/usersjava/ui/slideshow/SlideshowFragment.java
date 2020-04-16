@@ -41,7 +41,8 @@ public class SlideshowFragment extends Fragment {
         slideshowViewModel.getText().observe(getActivity(), s -> textView.setText(s));
         listPrivado = root.findViewById(R.id.listPrivado);
         listPublico = root.findViewById(R.id.listPublico);
-        start();
+        //start();
+        setAdaptador();
         return root;
     }
 
@@ -51,7 +52,7 @@ public class SlideshowFragment extends Fragment {
         Runnable mTicker = new Runnable() {
             @Override
             public void run() {
-                try {
+               // try {
                     ArrayAdapter<String> adapter;
                     Log.e(getClass().getSimpleName(), "Hilo Alive");
                     String[] mensajesArray = Mensajes.getInstance().getAdapterMensajes();
@@ -74,12 +75,36 @@ public class SlideshowFragment extends Fragment {
                         listPrivado.setAdapter(adapter);
                     }
                     mHandler.postDelayed(this, 10000);
-                } catch (Throwable throwable) {
-                    Log.e(getClass().getSimpleName(), "Error: " + throwable);
-                }
+               // } catch (Throwable throwable) {
+               //     Log.e(getClass().getSimpleName(), "Error: " + throwable);
+               // }
             }
         };
         mTicker.run();
 
+    }
+
+    public void setAdaptador(){
+        ArrayAdapter<String> adapter;
+        Log.e(getClass().getSimpleName(), "Hilo Alive");
+        String[] mensajesArray = Mensajes.getInstance().getAdapterMensajes();
+        if (mensajesArray == null) {
+            Log.i(getClass().getSimpleName(), "Regreso un null el adaptadpr");
+        } else {
+            adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_list_item_1,
+                    mensajesArray);
+            listPublico.setAdapter(adapter);
+        }
+
+        mensajesArray = Mensajes.getInstance().getAdapterMensajesPrivado();
+
+        if (mensajesArray == null) {
+            Log.i(getClass().getSimpleName(), "Regreso un null el adaptadpr PRIVADO");
+            return;
+        } else {
+            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+                    mensajesArray);
+            listPrivado.setAdapter(adapter);
+        }
     }
 }

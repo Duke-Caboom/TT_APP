@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -64,6 +65,8 @@ public class ComponentDataBase {
     }
 
     public void updateContactos() {
+        Log.i(getClass().getSimpleName(), "Actualizando contactos en FB: " + sharedPreferences.getString("contactos", ""));
+        Log.i(getClass().getSimpleName(), "Mi correo: " + getEmail());
         FirebaseFirestore.getInstance().collection("Users").
                 document(getEmail()).update("Contactos", sharedPreferences.getString("contactos", ""));
     }

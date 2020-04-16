@@ -37,6 +37,7 @@ import com.hypelabs.hype.MessageInfo;
 import com.hypelabs.hype.MessageObserver;
 import com.hypelabs.hype.NetworkObserver;
 import com.hypelabs.hype.StateObserver;
+import com.hypelabs.hype.TransportType;
 
 import java.io.UnsupportedEncodingException;
 
@@ -80,8 +81,10 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-        //Hype.setTransportType(31);
-        Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(0,5)));
+        Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
+        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY | TransportType.WIFI_INFRA);
+        //Hype.setTransportType(TransportType.WIFI_DIRECT);
+        Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(2,8)));
         Hype.setAppIdentifier("89a32a5d");
 
         try {
@@ -134,8 +137,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     public void onHypeFailedStarting(Error error) {
 
         Log.e(TAG, String.format("Hype failed starting [%s]", error.getDescription()));
-        configureHype();
-        /*
+
         // Obtain information of error
         final String failedMsg = error == null ? "" : String.format("Suggestion: %s\nDescription: %s\nReason: %s",
                 error.getSuggestion(), error.getDescription(), error.getReason());
@@ -150,7 +152,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
                 builder.setPositiveButton(android.R.string.ok, null);
                 builder.show();
             }
-        });*/
+        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.usersjava;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
         MemoryData memoryData = MemoryData.getInstance(this);
 
-        if (ComponentDataBase.getInstance().getNombre().equalsIgnoreCase("")) {
+        if (ComponentDataBase.getInstance().getNombre().trim().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setNombre(memoryData.getData("nombre").trim());
 
         }
-
-        if (ComponentDataBase.getInstance().getEmail().equalsIgnoreCase("")) {
+        Log.e(getClass().getSimpleName(), "Mi correo: " + memoryData.getData("email").trim());
+        Log.e(getClass().getSimpleName(), "Mi user: " + memoryData.getData("user").trim());
+        Log.e(getClass().getSimpleName(), "Mi name: " + memoryData.getData("nombre").trim());
+        if (ComponentDataBase.getInstance().getEmail().trim().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setEmail(memoryData.getData("email").trim());
         }
 

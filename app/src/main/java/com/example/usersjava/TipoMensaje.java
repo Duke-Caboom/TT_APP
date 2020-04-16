@@ -134,7 +134,7 @@ public class TipoMensaje {
             string = string + destinatario + ",";
         }
         string = string + ",,";
-        string.replace(",,,", "");
+        string = string.replace(",,,", "");
 
         Log.e(getClass().getSimpleName(), "----------------> destinatario:" + string);
         return string;
