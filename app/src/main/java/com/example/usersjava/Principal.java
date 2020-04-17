@@ -3,7 +3,9 @@ package com.example.usersjava;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import Library.MemoryData;
 public class Principal extends AppCompatActivity {
     Button btnregistro;
     Button btninicio;
+    String TAG = getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,13 @@ public class Principal extends AppCompatActivity {
 
         MemoryData memoryData = MemoryData.getInstance(this);
 
-        if (memoryData.getData("user") != null && !memoryData.getData("user").isEmpty()) {
+        Log.e(getClass().getSimpleName(), "user:" + memoryData.getData("nombre").trim());
+        Log.e(getClass().getSimpleName(), "nombre:" + memoryData.getData("nombre").trim());
+        Log.e(getClass().getSimpleName(), "correo:" + memoryData.getData("nombre").trim());
+
+
+        if (memoryData.getData("user") != null && !memoryData.getData("user").isEmpty()
+           && !memoryData.getData("nombre").trim().equalsIgnoreCase("")) {
             Intent main = new Intent(Principal.this, MainActivity.class);
             startActivity(main);
         } else {
@@ -58,5 +67,7 @@ public class Principal extends AppCompatActivity {
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
             }, 1000);
         }
+
+
     }
 }

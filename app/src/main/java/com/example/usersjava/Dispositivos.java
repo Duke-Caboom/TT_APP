@@ -24,7 +24,7 @@ public class Dispositivos {
     }
 
     public void addDispositivo(Instance instance) {
-        Log.i(TAG, "getUserIdentifier:  " + instance.getUserIdentifier());
+        Log.i(TAG, "getUserIdentifier:  " + instance.getStringIdentifier());
         Log.i(TAG, "dispositivos: " + dispositivos.toString());
         dispositivos.put(instance.getUserIdentifier(), instance);
     }
@@ -63,9 +63,7 @@ public class Dispositivos {
 
         int i = 0;
         for (HashMap.Entry<Long, Instance> entry : dispositivos.entrySet()) {
-            Log.i(TAG, "FOR: ");
             disp[i] = entry.getValue();
-            Log.i(TAG, "DEspues FOR: ");
             i++;
         }
         return disp;

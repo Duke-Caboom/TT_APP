@@ -14,9 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.usersjava.Dispositivos;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.Mensajes;
 import com.example.usersjava.R;
+import com.hypelabs.hype.Instance;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;
@@ -41,8 +43,8 @@ public class SlideshowFragment extends Fragment {
         slideshowViewModel.getText().observe(getActivity(), s -> textView.setText(s));
         listPrivado = root.findViewById(R.id.listPrivado);
         listPublico = root.findViewById(R.id.listPublico);
-        //start();
-        setAdaptador();
+        start();
+        //setAdaptador();
         return root;
     }
 
@@ -52,16 +54,25 @@ public class SlideshowFragment extends Fragment {
         Runnable mTicker = new Runnable() {
             @Override
             public void run() {
-               // try {
+                try {
                     ArrayAdapter<String> adapter;
                     Log.e(getClass().getSimpleName(), "Hilo Alive");
+                    Log.e(getClass().getSimpleName(), "Dispositivos:");
+                    Instance[] dispositivos = Dispositivos.getInstance().getDispositivos();
+
+                    for (Instance dispositivo:dispositivos){
+                        Log.e(getClass().getSimpleName(), "Dispo:"+dispositivo.getUserIdentifier());
+                    }
+
                     String[] mensajesArray = Mensajes.getInstance().getAdapterMensajes();
                     if (mensajesArray == null) {
                         Log.i(getClass().getSimpleName(), "Regreso un null el adaptadpr");
                     } else {
-                        adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_list_item_1,
-                                mensajesArray);
-                        listPublico.setAdapter(adapter);
+                        if (getActivity() != null) {
+                            adapter = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_list_item_1,
+                                    mensajesArray);
+                            listPublico.setAdapter(adapter);
+                        }
                     }
 
                     mensajesArray = Mensajes.getInstance().getAdapterMensajesPrivado();
@@ -70,14 +81,16 @@ public class SlideshowFragment extends Fragment {
                         Log.i(getClass().getSimpleName(), "Regreso un null el adaptadpr PRIVADO");
                         return;
                     } else {
-                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
-                                mensajesArray);
-                        listPrivado.setAdapter(adapter);
+                        if (getActivity() != null) {
+                            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+                                    mensajesArray);
+                            listPrivado.setAdapter(adapter);
+                        }
                     }
-                    mHandler.postDelayed(this, 10000);
-               // } catch (Throwable throwable) {
-               //     Log.e(getClass().getSimpleName(), "Error: " + throwable);
-               // }
+                    mHandler.postDelayed(this, 5000);
+                } catch (Throwable throwable) {
+                    Log.e(getClass().getSimpleName(), "Error: " + throwable);
+                }
             }
         };
         mTicker.run();

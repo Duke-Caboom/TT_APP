@@ -135,7 +135,7 @@ public class LoginViewModels extends ViewModel implements IonClick {
                                             if (document.exists()) {
                                                 memoryData = MemoryData.getInstance(_activity);
                                                 memoryData.saveData("user", document.getData().get("Telefono").toString());
-                                                memoryData.saveData("email", emailData);
+                                                memoryData.saveData("email", document.getData().get("Email").toString());
                                                 memoryData.saveData("contactos", document.getData().get("Contactos").toString());
                                                 memoryData.saveData("nombre", document.getData().get("Nombre").toString() + " " +
                                                         document.getData().get("Apellidos").toString());

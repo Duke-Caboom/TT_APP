@@ -82,9 +82,10 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
         Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
+        //Hype.setTransportType(TransportType.BLUETOOTH_CLASSIC);
         //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY | TransportType.WIFI_INFRA);
         //Hype.setTransportType(TransportType.WIFI_DIRECT);
-        Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(2,8)));
+        Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(1,10)));
         Hype.setAppIdentifier("89a32a5d");
 
         try {
@@ -93,6 +94,9 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             Hype.setAnnouncement(null);
             e.printStackTrace();
         }
+
+        MainActivity mainActivity = MainActivity.getDefaultInstance();
+        mainActivity.requestPermissions();
 
         Hype.start();
         isConfigured = true;
@@ -236,7 +240,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     }
 
     public void removeFromResolvedInstancesMap(Instance instance) {
-        Dispositivos.getInstance().deleteDispositivo(instance);
+        //Dispositivos.getInstance().deleteDispositivo(instance);
     }
 
     //################################################
@@ -246,7 +250,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     @Override
     public void onHypeMessageReceived(Message message, Instance instance) {
 
-        Log.e(TAG, String.format("Hype got a message from: %s", instance.getStringIdentifier()));
+        Log.e(TAG, String.format("Hype got a message from:"));
 
         String cadena = new String();
 

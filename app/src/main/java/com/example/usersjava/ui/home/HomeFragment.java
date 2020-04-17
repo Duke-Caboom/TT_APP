@@ -277,12 +277,13 @@ public class HomeFragment extends Fragment {
         Instance[] d = Dispositivos.getInstance().getDispositivos();
 
         for (Instance ins : d){
-            Log.v(TAG, "#####  Dispositivos: " + ins.getIdentifier());
+            Log.v(TAG, "#####  Dispositivos: " + ins.getUserIdentifier());
         }
 
 
 
         for (int i = 0; i < d.length; i++) {
+            Log.v(TAG, "##### Enviando a: "+ d[i].getUserIdentifier() );
             message = Hype.send(data, d[i], false);
         }
 
