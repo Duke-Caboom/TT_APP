@@ -139,8 +139,7 @@ public class ComponentDataBase {
     public void addMensaje(TipoMensaje mensaje) {
         DataBase dataBase = new DataBase(MainActivity.getDefaultInstance(), "base", null, 1);
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
-        ContentValues contentValues = new
-                ContentValues();
+        ContentValues contentValues = new ContentValues();
         contentValues.put("secuencia", getLatestIndexBD());
         contentValues.put("idUser", mensaje.getIdUser());
         contentValues.put("idMensaje", mensaje.getIdMensaje());
@@ -163,17 +162,21 @@ public class ComponentDataBase {
         DataBase dataBase = new DataBase(MainActivity.getDefaultInstance(), "base", null, 1);
         SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
         Cursor fila = sqLiteDatabase.rawQuery("select idUser, idMensaje, publico, destinatarios, mensaje, fecha, hora from mensajes order by secuencia", null);
+        Log.e(getClass().getSimpleName(), "fila: " + fila.getCount());
         if (fila.moveToFirst()) {
-            TipoMensaje tipoMensaje = new TipoMensaje(-1L,
-                    fila.getString(0),
-                    fila.getString(1),
-                    fila.getInt(2),
-                    fila.getString(3),
-                    fila.getString(4),
-                    fila.getString(5),
-                    fila.getString(6));
-            msg.put(i, tipoMensaje);
-            i++;
+            while (!fila.isAfterLast()) {
+                TipoMensaje tipoMensaje = new TipoMensaje(-1L,
+                        fila.getString(0),
+                        fila.getString(1),
+                        fila.getInt(2),
+                        fila.getString(3),
+                        fila.getString(4),
+                        fila.getString(5),
+                        fila.getString(6));
+                msg.put(i, tipoMensaje);
+                i++;
+                fila.moveToNext();
+            }
         } else {
             return null;
         }

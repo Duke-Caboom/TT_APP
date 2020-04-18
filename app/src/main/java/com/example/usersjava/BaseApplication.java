@@ -48,7 +48,7 @@ public class BaseApplication extends Application {
         void onApplicationStop(Application app);
     }
 
-    private boolean isRunningForeground = false;
+    private boolean isRunningForeground = true;
     private WeakReference<LifecycleDelegate> lifecycleDelegate;
 
     @Override

@@ -6,6 +6,8 @@ import com.hypelabs.hype.Instance;
 
 import java.util.HashMap;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 
 public class Dispositivos {
 
@@ -23,7 +25,7 @@ public class Dispositivos {
         return instance;
     }
 
-    public void addDispositivo(Instance instance) {
+    public synchronized void addDispositivo(Instance instance) {
         Log.i(TAG, "getUserIdentifier:  " + instance.getStringIdentifier());
         Log.i(TAG, "dispositivos: " + dispositivos.toString());
         dispositivos.put(instance.getUserIdentifier(), instance);
@@ -31,6 +33,19 @@ public class Dispositivos {
 
     public void deleteDispositivo(Instance instance) {
         dispositivos.remove(instance.getUserIdentifier());
+    }
+
+    public synchronized void replaceDispositivo(Instance instance) {
+        try {
+            if (!dispositivos.containsKey(instance.getUserIdentifier())){
+                dispositivos.put(instance.getUserIdentifier(), instance);
+            }else{
+                dispositivos.remove(instance.getUserIdentifier());
+                dispositivos.put(instance.getUserIdentifier(), instance);
+            }
+        }catch (Exception e){
+
+        }
     }
 
     public int sizeDispositivos() {

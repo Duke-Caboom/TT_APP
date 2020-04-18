@@ -28,9 +28,6 @@ public class Mensajes {
     public void addMensajes(String message) {
         TipoMensaje tipoMensaje = new TipoMensaje(message);
 
-        Log.e(getClass().getSimpleName(), "----------------> Evaluando mensaje para ver si existe");
-        Log.e(getClass().getSimpleName(), "----------------> 1) "+ tipoMensaje.getIdUser() + "/" + tipoMensaje.getIdMensaje());
-        Log.e(getClass().getSimpleName(), "----------------> 2) "+ ComponentDataBase.getInstance().getIdUser());
         if (tipoMensaje.getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())
                 || existsMessage(tipoMensaje.getIdUser(), tipoMensaje.getIdMensaje())) {
             Log.e(getClass().getSimpleName(), "----------------> El mensaje ya fue entregado anteriormente");
@@ -39,6 +36,12 @@ public class Mensajes {
         this.mensajes.put(index, tipoMensaje);
         Log.e(getClass().getSimpleName(), "----------------> Indice del mensaje agregado es: " + index);
         index = index + 1;
+
+        ComponentDataBase.getInstance().addMensaje(tipoMensaje);
+
+        if (tipoMensaje.isPublico()){
+            MainActivity.getDefaultInstance().notificacion();
+        }
     }
 
     public void addMensajesEnviados(String message) {
@@ -49,7 +52,6 @@ public class Mensajes {
 
         this.mensajes.put(index, tipoMensaje);
         index = index + 1;
-
         ComponentDataBase.getInstance().addMensaje(tipoMensaje);
     }
 
@@ -119,9 +121,9 @@ public class Mensajes {
         String mensajeA = "";
         HashMap<Integer, String> data = new HashMap();
         int j = 0;
-        int sizeMensajes = mensajes.size();
-
-        if (mensajes.size() != 0) {
+        int sizeMensajes = this.mensajes.size();
+        Log.e(getClass().getSimpleName(), "Tamano: "+ sizeMensajes);
+        if (this.mensajes.size() != 0) {
             int id_mensaje = 0;
             for (int i = sizeMensajes; i != 0; i--) {
                 id_mensaje = i - 1;
@@ -178,12 +180,12 @@ public class Mensajes {
         }
     }
 
-    public void startApp() {
-        Log.e(getClass().getSimpleName(), "----------------> Cargando tabla desde BD");
+    public synchronized void startApp() {
         HashMap<Integer, TipoMensaje> temp = ComponentDataBase.getInstance().getLatestMessages();
         if (temp != null) {
+
             this.mensajes = temp;
-            index = this.mensajes.size();
+            index = temp.size();
             Log.e(getClass().getSimpleName(), "----------------> Tabla Cargada");
         } else {
             Log.e(getClass().getSimpleName(), "----------------> Sin Mensajes");

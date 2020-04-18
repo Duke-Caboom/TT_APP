@@ -41,7 +41,7 @@ import com.hypelabs.hype.TransportType;
 
 import java.io.UnsupportedEncodingException;
 
-public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate {
+public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate, Runnable {
 
     public static String announcement = android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL;
     private static final String TAG = ChatApplication.class.getName();
@@ -83,7 +83,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addMessageObserver(this);
         Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
         //Hype.setTransportType(TransportType.BLUETOOTH_CLASSIC);
-        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY | TransportType.WIFI_INFRA);
+        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
         //Hype.setTransportType(TransportType.WIFI_DIRECT);
         Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(1,10)));
         Hype.setAppIdentifier("89a32a5d");
@@ -99,7 +99,9 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         mainActivity.requestPermissions();
 
         Hype.start();
-        isConfigured = true;
+        //Thread t = new Thread(this);
+        //t.start();
+
     }
 
     @Override
@@ -123,6 +125,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeStart() {
+        isConfigured = true;
         Log.e(TAG, "Hype started!");
     }
 
@@ -139,7 +142,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     }
 
     public void onHypeFailedStarting(Error error) {
-
+        isConfigured = false;
         Log.e(TAG, String.format("Hype failed starting [%s]", error.getDescription()));
 
         // Obtain information of error
@@ -196,7 +199,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Log.e(TAG, String.format("Hype lost instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
 
         // Remove lost instance from resolved instances
-        removeFromResolvedInstancesMap(instance);
+        //removeFromResolvedInstancesMap(instance);
     }
 
     @Override
@@ -213,7 +216,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     public void addToResolvedInstancesMap(Instance instance) {
 
-        Dispositivos.getInstance().addDispositivo(instance);
+        Dispositivos.getInstance().replaceDispositivo(instance);
 
         //Enviaremos la tabla de mensajes
         Message message;
@@ -240,7 +243,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     }
 
     public void removeFromResolvedInstancesMap(Instance instance) {
-        //Dispositivos.getInstance().deleteDispositivo(instance);
+        Dispositivos.getInstance().deleteDispositivo(instance);
     }
 
     //################################################
@@ -249,6 +252,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeMessageReceived(Message message, Instance instance) {
+
+        Dispositivos.getInstance().replaceDispositivo(instance);
 
         Log.e(TAG, String.format("Hype got a message from:"));
 
@@ -275,6 +280,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         } else {
             Log.v(getClass().getSimpleName(), "----------------> No se que reciio");
         }
+
+
     }
 
     @Override
@@ -307,4 +314,20 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     }
 
 
+    @Override
+    public void run() {
+        while (true){
+
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if (isConfigured && Dispositivos.getInstance().sizeDispositivos()==0){
+                Hype.stop();
+                Hype.start();
+            }
+        }
+    }
 }
