@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
         //Limpiamos la entrada del mensaje
         inputMensaje.setText("");
         Log.v(TAG, "##### Envio correcto");
-        Toast.makeText(getActivity(), "Envio exitoso!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Envio exitoso", Toast.LENGTH_LONG).show();
     }
 
     protected boolean sendMessagePrivado(String text) {

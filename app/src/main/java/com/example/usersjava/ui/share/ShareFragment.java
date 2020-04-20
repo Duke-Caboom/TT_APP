@@ -62,7 +62,6 @@ public class ShareFragment extends Fragment {
     private void setButtonListeners() {
         //Click en el boton enviar
         buttonAgregar.setOnClickListener(view -> agregarContacto());
-
         listContactos.setOnItemClickListener((parent, view, position, id) -> {
             eliminarContacto(parent.getItemAtPosition(position).toString());
         });
@@ -73,7 +72,7 @@ public class ShareFragment extends Fragment {
         if (new Networks(getActivity()).verificaNetworks()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Eliminar contacto");
-            builder.setMessage("Deseas eliminar al contacto...");
+            builder.setMessage("Deseas eliminar al contacto");
             /*builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -92,65 +91,69 @@ public class ShareFragment extends Fragment {
             builder.show();
 
         } else {
-            Toast.makeText(getActivity(), "Verifica tu conexión a internet!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Verifica tu conexión a internet", Toast.LENGTH_LONG).show();
         }
     }
 
     private void agregarContacto() {
         if (new Networks(getActivity()).verificaNetworks()) {
-            barP.setVisibility(ProgressBar.VISIBLE);
+            //barP.setVisibility(ProgressBar.VISIBLE);
             String correo = editTel.getText().toString().trim();
             String parenteco = editParen.getText().toString().trim();
 
-            SharedPreferences sharedPreferences;
-            SharedPreferences.Editor editor;
+            if(!editTel.getText().toString().isEmpty() || !editParen.getText().toString().isEmpty()){
+                SharedPreferences sharedPreferences;
+                SharedPreferences.Editor editor;
 
-            sharedPreferences = MainActivity.getDefaultInstance().getPreferences(Context.MODE_PRIVATE);
-            editor = sharedPreferences.edit();
+                sharedPreferences = MainActivity.getDefaultInstance().getPreferences(Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
 
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users").document(correo);
-            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users").document(correo);
+                docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
 
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot snap, @Nullable FirebaseFirestoreException e) {
-                    String numero;
-                    if (snap.exists()) {
-                        numero = snap.getData().get("Telefono").toString();
-                        String data = sharedPreferences.getString("contactos", "");
-                        if (data != "") {
-                            Log.e(getClass().getSimpleName(), "Vacio");
-                            String[] contactos = data.split(",");
-                            for (String contacto : contactos) {
-                                String[] split = contacto.split(":");
-                                if (split[1].equalsIgnoreCase(numero) || split[0].equalsIgnoreCase(parenteco)) {
-                                    Log.e(getClass().getName(), "El contacto ya existe");
-                                    Toast.makeText(getActivity(), "El contacto ya existe!", Toast.LENGTH_LONG).show();
-                                    return;
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot snap, @Nullable FirebaseFirestoreException e) {
+                        String numero;
+                        if (snap.exists()) {
+                            numero = snap.getData().get("Telefono").toString();
+                            String data = sharedPreferences.getString("contactos", "");
+                            if (data != "") {
+                                Log.e(getClass().getSimpleName(), "Vacio");
+                                String[] contactos = data.split(",");
+                                for (String contacto : contactos) {
+                                    String[] split = contacto.split(":");
+                                    if (split[1].equalsIgnoreCase(numero) || split[0].equalsIgnoreCase(parenteco)) {
+                                        Log.e(getClass().getName(), "El contacto ya existe");
+                                        Toast.makeText(getActivity(), "El contacto ya existe", Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
                                 }
                             }
-                        }
 
-                        if (data != "") {
-                            editor.putString("contactos", data + "," + parenteco + ":" + numero);
+                            if (data != "") {
+                                editor.putString("contactos", data + "," + parenteco + ":" + numero);
+                            } else {
+                                editor.putString("contactos", parenteco + ":" + numero);
+                            }
+                            editor.apply();
+                            Log.e(getClass().getSimpleName(), "Agregado: " + sharedPreferences.getString("contactos", ""));
+                            ComponentDataBase.getInstance().updateContactos();
+                            Toast.makeText(getActivity(), "Agregado correctamente", Toast.LENGTH_LONG).show();
+                            //barP.setVisibility(ProgressBar.INVISIBLE);
                         } else {
-                            editor.putString("contactos", parenteco + ":" + numero);
+                            Toast.makeText(getActivity(), "El correo no esta registrado", Toast.LENGTH_LONG).show();
+                            Log.e(getClass().getName(), "El correo no esta registrado");
+                            return;
                         }
-                        editor.apply();
-                        Log.e(getClass().getSimpleName(), "Agregado: " + sharedPreferences.getString("contactos", ""));
-                        ComponentDataBase.getInstance().updateContactos();
-                        Toast.makeText(getActivity(), "Agregado correctamente!", Toast.LENGTH_LONG).show();
-                        barP.setVisibility(ProgressBar.INVISIBLE);
-                    } else {
-                        Toast.makeText(getActivity(), "El correo no esta registrado!", Toast.LENGTH_LONG).show();
-                        Log.e(getClass().getName(), "El correo no esta registrado");
-                        return;
                     }
-                }
-            });
-            editParen.setText("");
-            editTel.setText("");
+                });
+                editParen.setText("");
+                editTel.setText("");
+            }else{
+                Toast.makeText(getActivity(), "Los campos estan vacios", Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(getActivity(), "Verifica tu conexión a internet!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Verifica tu conexión a internet", Toast.LENGTH_LONG).show();
         }
 
     }

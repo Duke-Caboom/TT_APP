@@ -63,13 +63,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/prompt_email"
-                        app:errorEnabled="true">
+                        android:textColorHint="@color/colorWhite"
+                        app:errorEnabled="true"
+                        app:hintTextColor="@color/colorWhite"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/email_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"
                             app:binding="@{emailModel.emailUI}" />
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -12,13 +12,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlack"
+        android:background="@drawable/gradient_login"
         android:orientation="vertical">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorWhite"
+            android:background="@drawable/gradient_login"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:paddingTop="45dp">
 
                     <ImageView
@@ -41,19 +42,15 @@
 
                     <TextView
                         android:id="@+id/Text1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorWhite"
                         android:text="Agregar Contacto"
-                        android:textAlignment="inherit"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
+                        android:textSize="30sp"
+                        />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tel_text_input"
@@ -62,17 +59,17 @@
                         android:layout_height="70dp"
                         android:hint="Correo *"
                         android:inputType="textEmailAddress"
-                        android:textColorHint="@color/colorBlack"
+                        android:textColorHint="@color/colorWhite"
                         app:errorEnabled="true"
-                        app:hintTextColor="@color/colorBlack">
+                        app:hintTextColor="@color/colorWhite">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tel_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"></com.google.android.material.textfield.TextInputEditText>
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -83,60 +80,59 @@
                         android:layout_height="70dp"
                         android:hint="@string/parentesco"
                         android:inputType="text|textNoSuggestions"
-                        android:textColorHint="@color/colorBlack"
+                        android:textColorHint="@color/colorWhite"
                         app:errorEnabled="true"
-                        app:hintTextColor="@color/colorBlack">
+                        app:hintTextColor="@color/colorWhite">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/paren_edit_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/colorBlack"></com.google.android.material.textfield.TextInputEditText>
+                            android:textColor="@color/colorWhite"
+                            android:textColorHint="@color/colorWhite"></com.google.android.material.textfield.TextInputEditText>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@color/colorWhite"
-                            android:orientation="horizontal"
-                            android:paddingTop="5dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
 
-                            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                                android:id="@+id/buttonAgregar"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Validar y agregar "
-                                android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
-                                app:backgroundTint="@color/colorGray2" />
-                        </LinearLayout>
+                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                            android:id="@+id/buttonAgregar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="agregar"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite"
+                            app:backgroundTint="@color/colorBlack"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/Text"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="Gestionar Contactos"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorWhite"
                         android:textAlignment="inherit"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textSize="20sp"
+                        android:textSize="30sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ListView
                         android:id="@+id/listContactos"
+                        android:cacheColorHint="@color/colorWhite"
+                        android:outlineAmbientShadowColor="@color/colorWhite"
+                        android:outlineSpotShadowColor="@color/colorWhite"
                         android:layout_width="match_parent"
                         android:layout_height="248dp" />
 
