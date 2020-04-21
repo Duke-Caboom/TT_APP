@@ -81,9 +81,9 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-        Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
+        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY | TransportType.WIFI_INFRA);
         //Hype.setTransportType(TransportType.BLUETOOTH_CLASSIC);
-        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
+        Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
         //Hype.setTransportType(TransportType.WIFI_DIRECT);
         Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(1,10)));
         Hype.setAppIdentifier("89a32a5d");

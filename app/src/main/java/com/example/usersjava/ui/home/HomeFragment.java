@@ -213,9 +213,8 @@ public class HomeFragment extends Fragment {
 
         if(latitud != 0){
             //Ubicacion
-            trama.append(text);
             trama.append("|!Estoy en: " + latitud + "," + longitud);
-            Log.v(TAG, "##### ----------------> 6 TRAMA: " + trama.toString());
+            Log.v(TAG, "##### ----------------> 5.1 TRAMA: " + trama.toString());
         }
 
         //Convierte trama a Bytes
@@ -266,11 +265,14 @@ public class HomeFragment extends Fragment {
         trama.append("!_");
         Log.v(TAG, "##### ----------------> 3 TRAMA: " + trama.toString());
 
+        //Mensaje
+        trama.append(text);
+        Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
+
         if(latitud != 0){
             //Ubicacion
-            trama.append(text);
             trama.append("|!Estoy en: " + latitud + "," + longitud);
-            Log.v(TAG, "##### ----------------> 4 TRAMA: " + trama.toString());
+            Log.v(TAG, "##### ----------------> 4.1 TRAMA: " + trama.toString());
         }
 
         //Convierte trama a Bytes
