@@ -16,7 +16,7 @@ public class TipoMensaje {
     private String hora;
     private String fecha;
 
-    public TipoMensaje(Long contador, String idUser, String idMensaje, int publico, String destinatarios, String mensajes, String hora, String fecha) {
+    public TipoMensaje(Long contador, String idUser, String idMensaje, int publico, String destinatarios, String mensajes, String fecha, String hora) {
         this.contador = contador;
         this.idUser = idUser;
         this.idMensaje = idMensaje;

@@ -163,10 +163,11 @@ public class Mensajes {
                 if (this.mensajes.get(id_mensaje).isPublico() == false &&
                         this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()) &&
                         !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
+                    String[] msg = this.mensajes.get(id_mensaje).getMensajes().split("Estoy en: ");
                     mensajeA = this.mensajes.get(id_mensaje).getIdUser() +"-"+ this.mensajes.get(id_mensaje).getIdMensaje()+"\n" +
-                            "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
-                            "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +
-                            this.mensajes.get(id_mensaje).getMensajes();
+                            "\tDe: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
+                            "\tRecibido: " + this.mensajes.get(id_mensaje).getFecha() + "-" + this.mensajes.get(id_mensaje).getHora() + "\n" +
+                            "\t"+msg[0];
                     data.put(j, mensajeA);
                     j++;
                 }

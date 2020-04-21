@@ -1,20 +1,26 @@
 package com.example.usersjava.ui.slideshow;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.usersjava.ComponentDataBase;
 import com.example.usersjava.Dispositivos;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.Mensajes;
@@ -46,6 +52,7 @@ public class SlideshowFragment extends Fragment {
         listPrivado = root.findViewById(R.id.listPrivado);
         listPublico = root.findViewById(R.id.listPublico);
         initElements(root);
+        setButtonListeners();
         start();
         //setAdaptador();
         return root;
@@ -75,9 +82,26 @@ public class SlideshowFragment extends Fragment {
 
         TipoMensaje tipoMensaje = Mensajes.getInstance().getMensaje(split[0],split[1]);
 
+        String[] msg = tipoMensaje.getMensajes().replace("|!","##").split("##");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(tipoMensaje.getIdMensaje());
-        builder.setMessage("Fecha y Hora");
+        builder.setTitle(tipoMensaje.getIdUser());
+        builder.setMessage("Mensaje recibido: "+ tipoMensaje.getFecha() + " " + tipoMensaje.getHora() +"\n"+
+                 "\n" + msg[0]);
+
+        if(msg.length==2){
+
+            msg[1] = msg[1].replace("Estoy en: ","");
+            builder.setPositiveButton("Ubicación", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Uri uri = Uri.parse("https://www.google.com/maps?q="+msg[1]);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            });
+        }
+        builder.show();
 
     }
 
