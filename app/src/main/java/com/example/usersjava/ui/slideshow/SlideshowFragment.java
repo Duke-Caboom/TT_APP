@@ -1,5 +1,6 @@
 package com.example.usersjava.ui.slideshow;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.example.usersjava.Dispositivos;
 import com.example.usersjava.MainActivity;
 import com.example.usersjava.Mensajes;
 import com.example.usersjava.R;
+import com.example.usersjava.TipoMensaje;
 import com.hypelabs.hype.Instance;
 
 import java.lang.ref.WeakReference;
@@ -43,9 +45,40 @@ public class SlideshowFragment extends Fragment {
         slideshowViewModel.getText().observe(getActivity(), s -> textView.setText(s));
         listPrivado = root.findViewById(R.id.listPrivado);
         listPublico = root.findViewById(R.id.listPublico);
+        initElements(root);
         start();
         //setAdaptador();
         return root;
+    }
+
+    private void initElements(View root) {
+        listPublico = root.findViewById(R.id.listPublico);
+        listPrivado = root.findViewById(R.id.listPrivado);
+    }
+
+    private void setButtonListeners() {
+        listPublico.setOnItemClickListener((parent, view, position, id) -> {
+            getMensaje(parent.getItemAtPosition(position).toString());
+        });
+
+        listPrivado.setOnItemClickListener((parent, view, position, id) -> {
+            getMensaje(parent.getItemAtPosition(position).toString());
+        });
+
+    }
+
+    private void getMensaje(String string) {
+        int index = string.indexOf("\n");
+        String buff = string.substring(0,index);
+
+        String[] split = buff.split("-");
+
+        TipoMensaje tipoMensaje = Mensajes.getInstance().getMensaje(split[0],split[1]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(tipoMensaje.getIdMensaje());
+        builder.setMessage("Fecha y Hora");
+
     }
 
     public void start() {

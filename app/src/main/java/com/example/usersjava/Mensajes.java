@@ -129,7 +129,9 @@ public class Mensajes {
                 id_mensaje = i - 1;
                 if (this.mensajes.get(id_mensaje).isPublico() &&
                         !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
-                    mensajeA = "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
+
+                    mensajeA = this.mensajes.get(id_mensaje).getIdUser() +"-"+ this.mensajes.get(id_mensaje).getIdMensaje()+"\n" +
+                            "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
                             "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +
                             this.mensajes.get(id_mensaje).getMensajes().replace("|!", "\n");
                     data.put(j, mensajeA);
@@ -161,7 +163,8 @@ public class Mensajes {
                 if (this.mensajes.get(id_mensaje).isPublico() == false &&
                         this.mensajes.get(id_mensaje).getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser()) &&
                         !this.mensajes.get(id_mensaje).getIdUser().equalsIgnoreCase(ComponentDataBase.getInstance().getIdUser())) {
-                    mensajeA = "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
+                    mensajeA = this.mensajes.get(id_mensaje).getIdUser() +"-"+ this.mensajes.get(id_mensaje).getIdMensaje()+"\n" +
+                            "De: " + this.mensajes.get(id_mensaje).getIdUser() + "\n" +
                             "Fecha: " + this.mensajes.get(id_mensaje).getFecha() + " Hora: " + this.mensajes.get(id_mensaje).getHora() + "\n" +
                             this.mensajes.get(id_mensaje).getMensajes();
                     data.put(j, mensajeA);
@@ -190,5 +193,16 @@ public class Mensajes {
         } else {
             Log.e(getClass().getSimpleName(), "----------------> Sin Mensajes");
         }
+    }
+
+    public TipoMensaje getMensaje(String user, String idMensaje){
+
+        for (HashMap.Entry<Integer, TipoMensaje> entry : this.mensajes.entrySet()) {
+            if (entry.getValue().getIdMensaje().equalsIgnoreCase(idMensaje)
+                    && entry.getValue().getIdUser().equalsIgnoreCase(user)){
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 }

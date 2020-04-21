@@ -20,6 +20,7 @@
 
     <LinearLayout
         android:layout_width="385dp"
+
         android:layout_height="723dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="4dp"
@@ -29,21 +30,27 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mensajes Publicos" />
+            android:text="Mensajes Publicos"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <ListView
             android:id="@+id/listPublico"
-            android:layout_width="match_parent"
-            android:layout_height="248dp" />
+            android:layout_marginLeft="8dp"
+            android:layout_width="371dp"
+            android:layout_height="248dp"/>
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mensajes Privados" />
+            android:text="Mensajes Privados"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp" />
 
         <ListView
             android:id="@+id/listPrivado"
+            android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
             android:layout_height="269dp" />
     </LinearLayout>
