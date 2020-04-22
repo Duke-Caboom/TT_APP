@@ -81,7 +81,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-        //Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY | TransportType.WIFI_INFRA);
+        //Hype.setTransportType(TransportType.WIFI_INFRA);
         //Hype.setTransportType(TransportType.BLUETOOTH_CLASSIC);
         Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
         //Hype.setTransportType(TransportType.WIFI_DIRECT);
@@ -218,8 +218,11 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
         Dispositivos.getInstance().replaceDispositivo(instance);
 
+        sendTabla(0,instance);
+    }
+
+    private void sendTabla(int i, Instance instance) {
         //Enviaremos la tabla de mensajes
-        Message message;
         StringBuilder trama = new StringBuilder();
         String tabla;
 
@@ -233,8 +236,21 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             Log.v(getClass().getSimpleName(), "----------------> TABLA A COMPARTIR: " + trama.toString());
 
             try {
-                byte[] data = trama.toString().getBytes("UTF-8");
-                message = Hype.send(data, instance, false);
+
+
+                if(i == 0){
+                    byte[] data = trama.toString().getBytes("UTF-8");
+                    Hype.send(data, instance, false);
+                }else{
+                    Instance[] d = Dispositivos.getInstance().getDispositivos();
+
+                    byte[] data = trama.toString().replace("TABLA","TABLA2").getBytes("UTF-8");
+                    for (int j = 0; j < d.length; j++) {
+                        if (d[j].getUserIdentifier() != Long.valueOf(instance.getUserIdentifier()))
+                         Hype.send(data, d[j], false);
+                    }
+                }
+
             } catch (Exception e) {
                 Log.v(getClass().getSimpleName(), "----------------> ALGO FALLO AL COMPARTIR LA TABLA");
                 e.printStackTrace();
@@ -281,7 +297,15 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
             Log.v(getClass().getSimpleName(), "----------------> No se que reciio");
         }
 
+        if (!cadena.contains("! TABLA2")){
+            this.activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
+                    sendTabla(1,instance);
+                }
+            });
+        }
     }
 
     @Override

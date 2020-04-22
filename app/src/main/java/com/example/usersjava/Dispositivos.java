@@ -31,7 +31,7 @@ public class Dispositivos {
         dispositivos.put(instance.getUserIdentifier(), instance);
     }
 
-    public void deleteDispositivo(Instance instance) {
+    public synchronized void deleteDispositivo(Instance instance) {
         dispositivos.remove(instance.getUserIdentifier());
     }
 
@@ -52,27 +52,6 @@ public class Dispositivos {
         return dispositivos.size();
     }
 
-    public String[] getAdapterDispositivos() {
-
-        String[] adapterArray = new String[dispositivos.size()];
-        Log.i(TAG, "dispositivos.size(): " + dispositivos.size());
-
-        if (dispositivos.size() == 0) {
-            return null;
-        }
-
-
-        int i = 0;
-        for (HashMap.Entry<Long, Instance> entry : dispositivos.entrySet()) {
-            Log.i(TAG, "FOR: ");
-            adapterArray[i] = entry.getValue().getStringIdentifier();
-            Log.i(TAG, "DEspues FOR: ");
-            i++;
-        }
-
-        return adapterArray;
-    }
-
     public Instance[] getDispositivos() {
         Instance[] disp = new Instance[dispositivos.size()];
 
@@ -84,12 +63,4 @@ public class Dispositivos {
         return disp;
     }
 
-    public Instance getDispositivo(int id) {
-        if (dispositivos.containsKey(id)) {
-            return dispositivos.get(id);
-        } else {
-            return null;
-        }
-
-    }
 }

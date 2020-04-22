@@ -122,7 +122,6 @@ public class Mensajes {
         HashMap<Integer, String> data = new HashMap();
         int j = 0;
         int sizeMensajes = this.mensajes.size();
-        Log.e(getClass().getSimpleName(), "Tamano: "+ sizeMensajes);
         if (this.mensajes.size() != 0) {
             int id_mensaje = 0;
             for (int i = sizeMensajes; i != 0; i--) {
