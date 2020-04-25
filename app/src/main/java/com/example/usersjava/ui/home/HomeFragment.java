@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
         radioPrivada = root.findViewById(R.id.radioPrivada);
         radioPublica = root.findViewById(R.id.radioPublica);
         inputMensaje = root.findViewById(R.id.editAyuda);
-        buttonEnviar = (Button) root.findViewById(R.id.buttonAgregar);
+        buttonEnviar = root.findViewById(R.id.buttonAgregar);
         textMSG1 = root.findViewById(R.id.Text);
         textMSG2 = root.findViewById(R.id.msg2);
         textMSG4 = root.findViewById(R.id.msg4);
