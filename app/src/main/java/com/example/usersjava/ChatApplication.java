@@ -273,7 +273,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
         Log.e(TAG, String.format("Hype got a message from:"));
 
-        String cadena = new String();
+        String cadena;
 
         try {
 
@@ -298,13 +298,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         }
 
         if (!cadena.contains("! TABLA2")){
-            this.activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    sendTabla(1,instance);
-                }
-            });
+            this.activity.runOnUiThread(() -> sendTabla(1,instance));
         }
     }
 

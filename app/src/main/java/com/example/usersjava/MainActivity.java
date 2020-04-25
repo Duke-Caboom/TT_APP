@@ -4,9 +4,6 @@ import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -74,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (ComponentDataBase.getInstance().getNombre().trim().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setNombre(memoryData.getData("nombre").trim());
-
         }
         Log.e(getClass().getSimpleName(), "Mi correo: " + memoryData.getData("email").trim());
         Log.e(getClass().getSimpleName(), "Mi user: " + memoryData.getData("user").trim());
@@ -90,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
         if (ComponentDataBase.getInstance().getIdUser().equalsIgnoreCase("")
                 && !memoryData.getData("user").trim().equalsIgnoreCase("")) {
             ComponentDataBase.getInstance().setIdUser(memoryData.getData("user").trim());
-            //ComponentDataBase.getInstance().setIdUser(String.valueOf((int)((Math.random()*100) +1)));
+
+            ComponentDataBase.getInstance().deleteMessages();
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);

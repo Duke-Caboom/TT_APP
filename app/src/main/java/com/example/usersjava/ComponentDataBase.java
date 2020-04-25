@@ -155,6 +155,12 @@ public class ComponentDataBase {
         sqLiteDatabase.close();
     }
 
+    public void deleteMessages(){
+        DataBase dataBase = new DataBase(MainActivity.getDefaultInstance(), "base", null, 1);
+        SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
+        sqLiteDatabase.rawQuery("delete from mensajes", null);
+    }
+
     public HashMap<Integer, TipoMensaje> getLatestMessages() {
 
         HashMap<Integer, TipoMensaje> msg = new HashMap<>();
@@ -165,7 +171,7 @@ public class ComponentDataBase {
         Log.e(getClass().getSimpleName(), "fila: " + fila.getCount());
         if (fila.moveToFirst()) {
             while (!fila.isAfterLast()) {
-                TipoMensaje tipoMensaje = new TipoMensaje(-1L,
+                TipoMensaje tipoMensaje = new TipoMensaje(-100L,
                         fila.getString(0),
                         fila.getString(1),
                         fila.getInt(2),
