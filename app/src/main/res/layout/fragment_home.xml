@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="#FFFFFF"
-                    android:checked="true"
+                    android:checked="false"
                     android:paddingLeft="10dip"
                     android:text="Privado"
                     android:textColor="@color/colorWhite"
