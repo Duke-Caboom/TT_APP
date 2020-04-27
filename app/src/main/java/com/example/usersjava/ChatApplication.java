@@ -85,7 +85,7 @@ public class ChatApplication implements StateObserver, NetworkObserver, MessageO
 
     @Override
     public void onHypeStop(Error error) {
-        requestHypeToStop();
+
         String description = "";
 
         if (error != null) {
