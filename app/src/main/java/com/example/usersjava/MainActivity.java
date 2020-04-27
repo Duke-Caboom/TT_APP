@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -174,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
         builder.setLights(Color.MAGENTA, 1000, 1000);
         builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+        builder.setContentIntent(PendingIntent.getActivity(getApplication(),
+                0, new Intent(getApplicationContext(),MainActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT));
+        builder.setAutoCancel(true);
         builder.setDefaults(Notification.DEFAULT_SOUND);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
