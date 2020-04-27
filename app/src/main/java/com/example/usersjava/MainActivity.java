@@ -66,7 +66,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContactActivity(this);
+        actualizaSharedProferences();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+                R.id.nav_tools, R.id.nav_share, R.id.nav_close)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        ChatApplication chatApplication = ChatApplication.getInstance();
+        chatApplication.setActivity(this);
+        chatApplication.requestHypeToStart();
+    }
+
+    private void actualizaSharedProferences() {
         MemoryData memoryData = MemoryData.getInstance(this);
 
         if (ComponentDataBase.getInstance().getNombre().trim().equalsIgnoreCase("")) {
@@ -89,25 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
             ComponentDataBase.getInstance().deleteMessages();
         }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_close)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        final ChatApplication chatApplication = (ChatApplication) getApplication();
-        chatApplication.setActivity(this);
-        chatApplication.configChatApp();
     }
 
     @Override
@@ -137,26 +138,20 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_ACCESS_COARSE_LOCATION_ID);
         } else {
-            ChatApplication chatApplication = (ChatApplication) getApplication();
-            chatApplication.requestHypeToStart();
+
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_ACCESS_COARSE_LOCATION_ID:
 
-                ChatApplication chatApplication = (ChatApplication) getApplication();
-                chatApplication.requestHypeToStart();
-
                 break;
         }
     }
 
     public void notificacion() {
-
         createNotificationChannel();
         createNotification();
     }

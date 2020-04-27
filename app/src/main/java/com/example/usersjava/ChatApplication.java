@@ -1,32 +1,7 @@
-//
-// MIT License
-//
-// Copyright (C) 2018 HypeLabs Inc.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
 package com.example.usersjava;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.util.Log;
 
 import com.hypelabs.hype.Error;
@@ -41,50 +16,47 @@ import com.hypelabs.hype.TransportType;
 
 import java.io.UnsupportedEncodingException;
 
-public class ChatApplication extends BaseApplication implements StateObserver, NetworkObserver, MessageObserver, BaseApplication.LifecycleDelegate, Runnable {
-
+public class ChatApplication implements StateObserver, NetworkObserver, MessageObserver{
     public static String announcement = android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL;
     private static final String TAG = ChatApplication.class.getName();
-
     private boolean isConfigured = false;
     private Activity activity;
+    private static ChatApplication instance = new ChatApplication();
 
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
 
-    @Override
-    public void onApplicationStart(Application app) {
+    public static ChatApplication getInstance() {
+        return instance;
     }
 
-    public void configChatApp() {
-        if (!isConfigured) {
-            Reloj.getInstance().start();
-            Mensajes.getInstance().startApp();
-            configureHype();
-        }
-    }
+    private ChatApplication(){
 
-    @Override
-    public void onApplicationStop(Application app) {
     }
 
     //################################################
     //###### CONFIGURE HYPE SDK ENVIRONMENT ##########
     //################################################
 
-    private void configureHype() {
-        if (isConfigured)
-            return;
+    @Override
+    public String onHypeRequestAccessToken(int i) {
+        return "3b7786aa9e90b32a";
+    }
 
-        Hype.setContext(getApplicationContext());
+    //################################################
+    //############# STATE OBSERVER ###################
+    //################################################
+
+    public void requestHypeToStart() {
+        Reloj.getInstance().start();
+        Mensajes.getInstance().startApp();
+
+        Hype.setContext(this.activity);
         Hype.addStateObserver(this);
         Hype.addNetworkObserver(this);
         Hype.addMessageObserver(this);
-        //Hype.setTransportType(TransportType.WIFI_INFRA);
-        //Hype.setTransportType(TransportType.BLUETOOTH_CLASSIC);
         Hype.setTransportType(TransportType.BLUETOOTH_LOW_ENERGY);
-        //Hype.setTransportType(TransportType.WIFI_DIRECT);
         Hype.setUserIdentifier(Integer.valueOf(ComponentDataBase.getInstance().getIdUser().substring(1,10)));
         Hype.setAppIdentifier("89a32a5d");
 
@@ -98,24 +70,6 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
         MainActivity mainActivity = MainActivity.getDefaultInstance();
         mainActivity.requestPermissions();
 
-        Hype.start();
-        //Thread t = new Thread(this);
-        //t.start();
-
-    }
-
-    @Override
-
-    public String onHypeRequestAccessToken(int i) {
-        return "3b7786aa9e90b32a";
-    }
-
-
-    //################################################
-    //############# STATE OBSERVER ###################
-    //################################################
-
-    public void requestHypeToStart() {
         Hype.start();
     }
 
@@ -131,7 +85,7 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
 
     @Override
     public void onHypeStop(Error error) {
-
+        requestHypeToStop();
         String description = "";
 
         if (error != null) {
@@ -177,19 +131,18 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     //########### NETWORK OBSERVER ###################
     //################################################
 
-    boolean shouldResolveInstance(Instance instance) {
-        // This method can be used to decide whether an instance is interesting.
-        return true;
-    }
-
     @Override
     public void onHypeInstanceFound(Instance instance) {
 
         Log.e(TAG, String.format("Hype found instance: %s", instance.getStringIdentifier()));
 
         // Resolve the instance, if it is interesting
-        if (shouldResolveInstance(instance)) {
+        if (!instance.isResolved()) {
+            Log.e(TAG, String.format("Resolviendo instancia"));
             Hype.resolve(instance);
+        }else{
+            Log.e(TAG, String.format("Ya resuelto"));
+            addToResolvedInstancesMap(instance);
         }
     }
 
@@ -197,9 +150,8 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     public void onHypeInstanceLost(Instance instance, Error error) {
 
         Log.e(TAG, String.format("Hype lost instance: %s [%s]", instance.getStringIdentifier(), error.getDescription()));
-
         // Remove lost instance from resolved instances
-        //removeFromResolvedInstancesMap(instance);
+        removeFromResolvedInstancesMap(instance);
     }
 
     @Override
@@ -324,28 +276,4 @@ public class ChatApplication extends BaseApplication implements StateObserver, N
     //########### END OF SDK INTEGRATION #############
     //################################################
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        // See BaseApplication.java
-        setLifecyleDelegate(this);
-    }
-
-
-    @Override
-    public void run() {
-        while (true){
-
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (isConfigured && Dispositivos.getInstance().sizeDispositivos()==0){
-                Hype.stop();
-                Hype.start();
-            }
-        }
-    }
 }

@@ -40,7 +40,13 @@ public class Mensajes {
         ComponentDataBase.getInstance().addMensaje(tipoMensaje);
 
         if (tipoMensaje.isPublico()){
+            Log.e(getClass().getSimpleName(), "----------------> Notificando mensaje Puiblico ");
             MainActivity.getDefaultInstance().notificacion();
+        }else if(tipoMensaje.getDestinatarios().contains(ComponentDataBase.getInstance().getIdUser())){
+            Log.e(getClass().getSimpleName(), "----------------> Notificando mensaje privado ");
+            MainActivity.getDefaultInstance().notificacion();
+        }else{
+            Log.e(getClass().getSimpleName(), "----------------> Es un mensaje privado pero no soy el receptor ");
         }
     }
 
